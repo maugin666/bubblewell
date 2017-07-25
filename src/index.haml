@@ -1,0 +1,36 @@
+!!! 5
+%html{lang: "ru"}
+  %head
+    %meta{charset: "utf-8"}
+    %title Title
+    %link{rel: "stylesheet", href: "stylesheets/style.css"}
+    //%script{src: "javascripts/main.js"}
+  %body
+    .popup
+    .overlay
+    .container.js-container
+      .filter
+        %ul.fast-filters
+          %li.ff-item
+            %a Все
+          %li.ff-item
+            %a У друзей
+          %li.ff-item
+            %ul.categories
+              %li Спорт
+      .offers
+        .offer-item
+          %img.offer-cover{src: "img/fandorin.jpg"}
+          .offer-info
+            .theme Самый лучший детектив
+            .info-text.tag Люди
+            .info-text.date Всегда актуально
+            .info-text.location Москва
+            .counters
+              %span.likes 102 нравится
+              %span.added 78 добавили себе
+          .offer-comment-block
+            %img.offer-author{src: "img/fandorin.jpg"}
+            .author
+              %span.name Эраст Фандорин
+              %span предлагает

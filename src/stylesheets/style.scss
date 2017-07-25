@@ -1,0 +1,62 @@
+$line-color: #e6e6e6;
+$link-color: #6c87b8;
+$offer-text-color: #9e9e9e;
+$offer-author-background: #f1f1f1;
+$offer-border-color: #cdcdcd;
+$main-background: #fcfcfc;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@font-face {
+  font-family: "PFAgoraSansPro-Regular";
+  src: url("../fonts/pfagorasanspro-reg.eot");
+  src: url("../fonts/pfagorasanspro-reg.eot?#iefix") format("embedded-opentype"),
+  url("../fonts/pfagorasanspro-reg.otf") format("opentype"),
+  url("../fonts/pfagorasanspro-reg.svg") format("svg"),
+  url("../fonts/pfagorasanspro-reg.ttf") format("truetype"),
+  url("../fonts/pfagorasanspro-reg.woff") format("woff"),
+  url("../fonts/pfagorasanspro-reg.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PFAgoraSansPro-XThin";
+  src: url("../fonts/pfagorasanspro-xthin.eot");
+  src: url("../fonts/pfagorasanspro-xthin.eot?#iefix") format("embedded-opentype"),
+  url("../fonts/pfagorasanspro-xthin.otf") format("opentype"),
+  url("../fonts/pfagorasanspro-xthin.svg") format("svg"),
+  url("../fonts/pfagorasanspro-xthin.ttf") format("truetype"),
+  url("../fonts/pfagorasanspro-xthin.woff") format("woff"),
+  url("../fonts/pfagorasanspro-xthin.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body { background: $main-background; font-family: Arial, sans-serif; font-size: 14px; }
+.container { width: 950px; margin: 0 auto; }
+.filter { margin: 20px 0; padding: 10px; border: 1px solid $line-color; border-radius: 10px; background: #fff; }
+.fast-filters,
+.categories { list-style: none; font-size: 0; }
+.ff-item { display: inline-block; padding: 5px 10px; border-right: 1px dotted $line-color; font-family: "PFAgoraSansPro-XThin", sans-serif; color: $link-color; font-size: 14px; cursor: pointer; }
+.categories { font-size: 14px; }
+
+
+.offer-item { display: inline-block; width: 220px; border: 1px solid $line-color; border-radius: 10px; }
+.offer-cover { display: block; width: 100%; height: auto; border-top-left-radius: 10px; border-bottom-right-radius: 10px; }
+.offer-info { padding: 10px 15px; font-size: 11px; color: $offer-text-color; }
+.theme {  margin-bottom: 10px; font-weight: bold; font-size: 12px; color: #000; }
+.counters {
+  margin-top: 40px;
+  .likes { padding-right: 10px; }
+}
+.offer-comment-block { padding: 5px 15px; background: $offer-author-background; }
+.author,
+.offer-author { display: inline-block; vertical-align: top; }
+.offer-author { width: 30px; height: 30px; border-radius: 15px; margin-right: 10px; padding: 3px; border: 1px solid $offer-border-color; }
+.author {
+  span { display: block; font-size: 11px; font-style: italic; color: $offer-text-color; }
+  .name { font-family: "PFAgoraSansPro-XThin", sans-serif; font-size: 12px; font-style: normal; color: $link-color; }
+}
+
+.popup { position: fixed; top: 50px; left: 50%; margin-left: -405px; width: 810px; min-height: 555px; z-index: 10; background: #fff; border-radius: 5px; }
+.overlay { position: fixed; top: 0; left: 0; min-height: 100%; min-width:100%; z-index: 5; background: rgba(0, 0, 0, 0.4); }
