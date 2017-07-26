@@ -25,7 +25,11 @@ body {
 
 .container {
   width: 950px;
-  margin: 0 auto; }
+  margin: 100px auto 0;
+  -webkit-column-count: 4;
+          column-count: 4;
+  -webkit-column-gap: 10px;
+          column-gap: 10px; }
 
 .filter {
   margin: 20px 0;
@@ -53,16 +57,22 @@ body {
 
 .offer-item {
   display: inline-block;
-  width: 220px;
+  position: relative;
+  vertical-align: baseline;
+  width: 100%;
+  margin: 10px 0;
   border: 1px solid #e6e6e6;
-  border-radius: 10px; }
+  border-radius: 10px;
+  cursor: pointer; }
+  .offer-item:hover {
+    border-color: #6c87b8; }
 
 .offer-cover {
   display: block;
   width: 100%;
   height: auto;
   border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px; }
+  border-top-right-radius: 10px; }
 
 .offer-info {
   padding: 10px 15px;
@@ -109,22 +119,5 @@ body {
   font-style: normal;
   color: #6c87b8; }
 
-.popup {
-  position: fixed;
-  top: 50px;
-  left: 50%;
-  margin-left: -405px;
-  width: 810px;
-  min-height: 555px;
-  z-index: 10;
-  background: #fff;
-  border-radius: 5px; }
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-height: 100%;
-  min-width: 100%;
-  z-index: 5;
-  background: rgba(0, 0, 0, 0.4); }
+/*.popup { position: fixed; top: 50px; left: 50%; margin-left: -405px; width: 810px; min-height: 555px; z-index: 10; background: #fff; border-radius: 5px; }
+.overlay { position: fixed; top: 0; left: 0; min-height: 100%; min-width:100%; z-index: 5; background: rgba(0, 0, 0, 0.4); }*/

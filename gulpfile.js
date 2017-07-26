@@ -7,11 +7,11 @@ var
 
 var path = {
   build: {
-    html: 'build/',
-    js: 'build/javascripts/',
-    style: 'build/stylesheets/',
-    fonts: 'build/fonts/',
-    img: 'build/img/'
+    html: 'public/',
+    js: 'public/javascripts/',
+    style: 'public/stylesheets/',
+    fonts: 'public/fonts/',
+    img: 'public/img/'
   },
   src: {
     html: 'src/*.html',

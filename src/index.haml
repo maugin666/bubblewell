@@ -4,33 +4,30 @@
     %meta{charset: "utf-8"}
     %title Title
     %link{rel: "stylesheet", href: "stylesheets/style.css"}
-    //%script{src: "javascripts/main.js"}
+    %script{src: "javascripts/jquery-3.2.1.js"}
+    %script{src: "javascripts/handlebars-v4.0.10.js"}
+    %script{src: "javascripts/application.js"}
   %body
     .popup
     .overlay
     .container.js-container
-      .filter
-        %ul.fast-filters
-          %li.ff-item
-            %a Все
-          %li.ff-item
-            %a У друзей
-          %li.ff-item
-            %ul.categories
-              %li Спорт
-      .offers
-        .offer-item
-          %img.offer-cover{src: "img/fandorin.jpg"}
-          .offer-info
-            .theme Самый лучший детектив
-            .info-text.tag Люди
-            .info-text.date Всегда актуально
-            .info-text.location Москва
-            .counters
-              %span.likes 102 нравится
-              %span.added 78 добавили себе
-          .offer-comment-block
-            %img.offer-author{src: "img/fandorin.jpg"}
-            .author
-              %span.name Эраст Фандорин
-              %span предлагает
+
+
+%script#template{type: "text/x-handlebars-template"}
+  {{#each offers}}
+  .offer-item
+    %img.offer-cover{src: "{{imageURL}}"}
+    .offer-info
+      .theme {{title}}
+      .info-text.tag {{topic}}
+      .info-text.date {{actualTime}}
+      .info-text.location {{location}}
+      .counters
+        %span.likes {{likes}} нравится
+        %span.added {{added}} добавили себе
+    .offer-comment-block
+      %img.offer-author{src: "{{imageURL}}"}
+      .author
+        %span.name {{author}}
+        %span предлагает
+  {{/each}}
