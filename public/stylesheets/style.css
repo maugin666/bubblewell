@@ -28,8 +28,8 @@ body {
   margin: 100px auto 0;
   -webkit-column-count: 4;
           column-count: 4;
-  -webkit-column-gap: 10px;
-          column-gap: 10px; }
+  -webkit-column-gap: 20px;
+          column-gap: 20px; }
 
 .filter {
   margin: 20px 0;
@@ -65,7 +65,24 @@ body {
   border-radius: 10px;
   cursor: pointer; }
   .offer-item:hover {
-    border-color: #6c87b8; }
+    border: 2px solid #abc9e8;
+    -webkit-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+            box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+    .offer-item:hover .more-button {
+      display: block; }
+
+.more-button {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  background: #abc9e8;
+  font-family: "PFAgoraSansPro-Regular", sans-serif;
+  font-size: 12px;
+  color: #fff;
+  text-align: center; }
 
 .offer-cover {
   display: block;
@@ -119,5 +136,34 @@ body {
   font-style: normal;
   color: #6c87b8; }
 
-/*.popup { position: fixed; top: 50px; left: 50%; margin-left: -405px; width: 810px; min-height: 555px; z-index: 10; background: #fff; border-radius: 5px; }
-.overlay { position: fixed; top: 0; left: 0; min-height: 100%; min-width:100%; z-index: 5; background: rgba(0, 0, 0, 0.4); }*/
+.popup {
+  display: none;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  margin-left: -405px;
+  width: 810px;
+  min-height: 555px;
+  z-index: 10;
+  background: #fff;
+  border-radius: 5px; }
+  .popup .author-block {
+    padding: 5px 10px; }
+  .popup .offer-author {
+    margin-left: 25px;
+    width: 76px;
+    height: 76px;
+    border-radius: 38px; }
+  .popup .close {
+    float: right; }
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer; }

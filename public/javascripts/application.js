@@ -29,5 +29,14 @@ $(document).ready(function () {
   var obj = {"author": "qwerty", "title": "qwerty"};
 
   getJSON();
+
+  $(document).on('click', '.more-button', function () {
+    $('.popup').show();
+    $('.overlay').show();
+  });
+  $(document).on('click', '.overlay', function () {
+    $('.popup').hide();
+    $(this).hide();
+  });
 });
 

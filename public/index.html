@@ -9,7 +9,15 @@
 <script src='javascripts/application.js'></script>
 </head>
 <body>
-<div class='popup'></div>
+<div class='popup'>
+<div class='author-block'>
+<img class='offer-author' src='{{imageURL}}'>
+</div>
+<div class='close'>
+<span>Закрыть</span>
+<span class='close-icon'>x</span>
+</div>
+</div>
 <div class='overlay'></div>
 <div class='container js-container'></div>
 </body>
@@ -17,6 +25,7 @@
 <script id='template' type='text/x-handlebars-template'>
 {{#each offers}}
 <div class='offer-item'>
+<div class='more-button' data-id='{{id}}'>Ознакомиться с предложением</div>
 <img class='offer-cover' src='{{imageURL}}'>
 <div class='offer-info'>
 <div class='theme'>{{title}}</div>

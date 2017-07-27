@@ -9,6 +9,11 @@
     %script{src: "javascripts/application.js"}
   %body
     .popup
+      .author-block
+        %img.offer-author{src: "{{imageURL}}"}
+      .close
+        %span Закрыть
+        %span.close-icon x
     .overlay
     .container.js-container
 
@@ -16,6 +21,7 @@
 %script#template{type: "text/x-handlebars-template"}
   {{#each offers}}
   .offer-item
+    .more-button{data: {id: "{{id}}"}} Ознакомиться с предложением
     %img.offer-cover{src: "{{imageURL}}"}
     .offer-info
       .theme {{title}}
