@@ -8,20 +8,15 @@
     %script{src: "javascripts/handlebars-v4.0.10.js"}
     %script{src: "javascripts/application.js"}
   %body
-    .popup
-      .author-block
-        %img.offer-author{src: "{{imageURL}}"}
-      .close
-        %span Закрыть
-        %span.close-icon x
+    .popup.js-popup
     .overlay
     .container.js-container
 
 
-%script#template{type: "text/x-handlebars-template"}
+%script#offers-template{type: "text/x-handlebars-template"}
   {{#each offers}}
   .offer-item
-    .more-button{data: {id: "{{id}}"}} Ознакомиться с предложением
+    .more-button{data: {id: "{{offerId}}"}} Ознакомиться с предложением
     %img.offer-cover{src: "{{imageURL}}"}
     .offer-info
       .theme {{title}}
@@ -32,8 +27,33 @@
         %span.likes {{likes}} нравится
         %span.added {{added}} добавили себе
     .offer-comment-block
-      %img.offer-author{src: "{{imageURL}}"}
+      %img.offer-author{src: "{{author.userImage}}"}
       .author
-        %span.name {{author}}
+        %span.name {{author.fullName}}
         %span предлагает
   {{/each}}
+
+%script#popup-template{type: "text/x-handlebars-template"}
+  .author-block
+    %img.offer-author{src: "{{author.userImage}}"}
+    .author
+      %span.name {{author.fullName}}
+      %span нуждается в этом
+    .close
+      %span Закрыть
+      %span.close-icon X
+  .popup-left-block
+    .popup-left-block-title {{title}}
+    .popup-left-block-topic {{topic}}ы
+    %img.offer-cover{src: "{{imageURL}}"}
+    .popup-left-block-description {{description}}
+  .popup-right-block
+  .comments
+    {{#each comments}}
+    .comment-item
+      %img.comment-author{src: "{{userImage}}"}
+      .comment-text {{comment}}
+    {{/each}}
+    .add-comment
+      %img.comment-author{src: "{{author.userImage}}"}
+      %textarea.comment-section{placeholder: "Комментировать"}

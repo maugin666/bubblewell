@@ -1,8 +1,12 @@
 {
   "offers": [
     {
-      "id": 0,
-      "author": "Евгения Леванова",
+      "offerId": 0,
+      "author": {
+          "userId": 0,
+          "fullName": "Васька Дурачок",
+          "userImage": "http://i.imgur.com/187Y4u3.png"
+        },
       "title": "Первый заголовок",
       "description": "Блаблабла",
       "topic": "Блаблабла",
@@ -10,22 +14,45 @@
       "location": "Блаблабла",
       "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
       "likes": 15,
-      "added": 7
+      "added": 7,
+      "comments": [
+        {
+          "commentId": 0,
+          "userId": 7,
+          "userImage": "http://i.imgur.com/k8yNOXN.png",
+          "comment": "Meow!"
+        },
+        {
+          "commentId": 1,
+          "userId": 5,
+          "userImage": "http://i.imgur.com/IkLetkK.png",
+          "comment": "Данная статья содержит в себе описание основных возможностей шаблонизатора Handlebars и является свободным переводом его официальной документации. Итак, поехали…"
+        }
+      ]
     },
     {
-      "id": 2,
-      "author": "Евгения Леванова",
-      "title": "Первый заголовок",
+      "offerId": 1,
+      "author": {
+          "userId": 1,
+          "fullName": "Борис Завоеватель",
+          "userImage": "http://i.imgur.com/vDhhizN.jpg?1"
+        },
+      "title": "Second заголовок",
       "description": "Блаблабла",
       "topic": "Блаблабла",
       "actualTime": "Блаблабла",
       "location": "Блаблабла",
-      "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
+      "imageURL": "https://static.pexels.com/photos/126407/pexels-photo-126407.jpeg",
       "likes": 15,
       "added": 7
     },
     {
-      "author": "qwerty",
+      "offerId": 2,
+      "author": {
+          "userId": 2,
+          "fullName": "Барсик Прекрасный",
+          "userImage": "http://1.bp.blogspot.com/-WWXXNsEqEks/TrCiZ7tPs_I/AAAAAAAAAfM/FGpji7PE5nU/s1600/bakeneko.png"
+        },
       "title": "qwerty",
       "description": "qwerty",
       "topic": "qwerty",
@@ -33,116 +60,7 @@
       "location": "qwerty",
       "imageURL": "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg",
       "likes": 0,
-      "added": 0,
-      "id": 1
-    },
-    {
-      "author": "qwerty",
-      "title": "qwerty",
-      "description": "qwerty",
-      "topic": "qwerty",
-      "actualTime": "qwerty",
-      "location": "qwerty",
-      "imageURL": "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg",
-      "likes": 0,
-      "added": 0,
-      "id": 3
-    },
-    {
-      "id": 4,
-      "author": "Евгения Леванова",
-      "title": "Первый заголовок",
-      "description": "Блаблабла",
-      "topic": "Блаблабла",
-      "actualTime": "Блаблабла",
-      "location": "Блаблабла",
-      "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
-      "likes": 15,
-      "added": 7
-    },
-    {
-      "author": "qwerty",
-      "title": "qwerty",
-      "description": "qwerty",
-      "topic": "qwerty",
-      "actualTime": "qwerty",
-      "location": "qwerty",
-      "imageURL": "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg",
-      "likes": 0,
-      "added": 0,
-      "id": 5
-    },
-    {
-      "id": 0,
-      "author": "Евгения Леванова",
-      "title": "Первый заголовок",
-      "description": "Блаблабла",
-      "topic": "Блаблабла",
-      "actualTime": "Блаблабла",
-      "location": "Блаблабла",
-      "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
-      "likes": 15,
-      "added": 7
-    },
-    {
-      "id": 2,
-      "author": "Евгения Леванова",
-      "title": "Первый заголовок",
-      "description": "Блаблабла",
-      "topic": "Блаблабла",
-      "actualTime": "Блаблабла",
-      "location": "Блаблабла",
-      "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
-      "likes": 15,
-      "added": 7
-    },
-    {
-      "author": "qwerty",
-      "title": "qwerty",
-      "description": "qwerty",
-      "topic": "qwerty",
-      "actualTime": "qwerty",
-      "location": "qwerty",
-      "imageURL": "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg",
-      "likes": 0,
-      "added": 0,
-      "id": 1
-    },
-    {
-      "author": "qwerty",
-      "title": "qwerty",
-      "description": "qwerty",
-      "topic": "qwerty",
-      "actualTime": "qwerty",
-      "location": "qwerty",
-      "imageURL": "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg",
-      "likes": 0,
-      "added": 0,
-      "id": 3
-    },
-    {
-      "id": 4,
-      "author": "Евгения Леванова",
-      "title": "Первый заголовок",
-      "description": "Блаблабла",
-      "topic": "Блаблабла",
-      "actualTime": "Блаблабла",
-      "location": "Блаблабла",
-      "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
-      "likes": 15,
-      "added": 7
-    },
-    {
-      "author": "qwerty",
-      "title": "qwerty",
-      "description": "qwerty",
-      "topic": "qwerty",
-      "actualTime": "qwerty",
-      "location": "qwerty",
-      "imageURL": "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg",
-      "likes": 0,
-      "added": 0,
-      "id": 5
+      "added": 0
     }
   ]
 }

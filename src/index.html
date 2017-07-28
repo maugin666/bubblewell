@@ -9,23 +9,15 @@
 <script src='javascripts/application.js'></script>
 </head>
 <body>
-<div class='popup'>
-<div class='author-block'>
-<img class='offer-author' src='{{imageURL}}'>
-</div>
-<div class='close'>
-<span>Закрыть</span>
-<span class='close-icon'>x</span>
-</div>
-</div>
+<div class='popup js-popup'></div>
 <div class='overlay'></div>
 <div class='container js-container'></div>
 </body>
 </html>
-<script id='template' type='text/x-handlebars-template'>
+<script id='offers-template' type='text/x-handlebars-template'>
 {{#each offers}}
 <div class='offer-item'>
-<div class='more-button' data-id='{{id}}'>Ознакомиться с предложением</div>
+<div class='more-button' data-id='{{offerId}}'>Ознакомиться с предложением</div>
 <img class='offer-cover' src='{{imageURL}}'>
 <div class='offer-info'>
 <div class='theme'>{{title}}</div>
@@ -38,12 +30,44 @@
 </div>
 </div>
 <div class='offer-comment-block'>
-<img class='offer-author' src='{{imageURL}}'>
+<img class='offer-author' src='{{author.userImage}}'>
 <div class='author'>
-<span class='name'>{{author}}</span>
+<span class='name'>{{author.fullName}}</span>
 <span>предлагает</span>
 </div>
 </div>
 </div>
 {{/each}}
+</script>
+<script id='popup-template' type='text/x-handlebars-template'>
+<div class='author-block'>
+<img class='offer-author' src='{{author.userImage}}'>
+<div class='author'>
+<span class='name'>{{author.fullName}}</span>
+<span>нуждается в этом</span>
+</div>
+<div class='close'>
+<span>Закрыть</span>
+<span class='close-icon'>X</span>
+</div>
+</div>
+<div class='popup-left-block'>
+<div class='popup-left-block-title'>{{title}}</div>
+<div class='popup-left-block-topic'>{{topic}}ы</div>
+<img class='offer-cover' src='{{imageURL}}'>
+<div class='popup-left-block-description'>{{description}}</div>
+</div>
+<div class='popup-right-block'></div>
+<div class='comments'>
+{{#each comments}}
+<div class='comment-item'>
+<img class='comment-author' src='{{userImage}}'>
+<div class='comment-text'>{{comment}}</div>
+</div>
+{{/each}}
+<div class='add-comment'>
+<img class='comment-author' src='{{author.userImage}}'>
+<textarea class='comment-section' placeholder='Комментировать'></textarea>
+</div>
+</div>
 </script>
