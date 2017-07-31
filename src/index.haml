@@ -4,9 +4,7 @@
     %meta{charset: "utf-8"}
     %title Title
     %link{rel: "stylesheet", href: "stylesheets/style.css"}
-    %script{src: "javascripts/jquery-3.2.1.js"}
-    %script{src: "javascripts/handlebars-v4.0.10.js"}
-    %script{src: "javascripts/application.js"}
+    %script{src: "javascripts/main.js"}
   %body
     .popup.js-popup
     .overlay
@@ -24,8 +22,8 @@
       .info-text.date {{actualTime}}
       .info-text.location {{location}}
       .counters
-        %span.likes {{likes}} нравится
-        %span.added {{added}} добавили себе
+        %span.likes {{#if likes.length}} {{likes.length}} {{else}} 0 {{/if}} нравится
+        %span.added {{#if added.length}} {{added.length}} {{else}} 0 {{/if}} добавили себе
     .offer-comment-block
       %img.offer-author{src: "{{author.userImage}}"}
       .author
@@ -39,15 +37,19 @@
     .author
       %span.name {{author.fullName}}
       %span нуждается в этом
+    .add-friend-button Добавить в друзья
     .close
       %span Закрыть
       %span.close-icon X
   .popup-left-block
     .popup-left-block-title {{title}}
-    .popup-left-block-topic {{topic}}ы
+    .popup-left-block-topic {{topic}}
     %img.offer-cover{src: "{{imageURL}}"}
     .popup-left-block-description {{description}}
   .popup-right-block
+    .popup-button Добавить к себе
+    .popup-button Мне нравится
+    .popup-button Комментировать
   .comments
     {{#each comments}}
     .comment-item
@@ -57,3 +59,17 @@
     .add-comment
       %img.comment-author{src: "{{author.userImage}}"}
       %textarea.comment-section{placeholder: "Комментировать"}
+  {{#if added.length}}
+  .popup-list.popup-added
+    .popup-list-text {{added.length}} добавили себе
+    {{#each added}}
+    %img.comment-author{src: "{{userImage}}"}
+    {{/each}}
+  {{/if}}
+  {{#if likes.length}}
+  .popup-list.popup-likes
+    .popup-list-text {{likes.length}} нравится
+    {{#each likes}}
+    %img.comment-author{src: "{{userImage}}"}
+    {{/each}}
+  {{/if}}

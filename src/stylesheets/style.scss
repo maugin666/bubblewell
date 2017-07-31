@@ -6,32 +6,31 @@ $offer-author-background: #f1f1f1;
 $offer-border-color: #cdcdcd;
 $main-background: #fcfcfc;
 
+@mixin gradient($color1, $color2) { background: linear-gradient(to bottom, $color1, $color2); }
+@mixin button($width, $font-color, $color1, $color2) {
+  width: $width; padding: 2px 0; border: 1px solid $color1; border-radius: 3px; @include gradient($color1, $color2); cursor: pointer; text-align: center; font-family: "PFAgoraSansPro-Regular", sans-serif; font-size: 14px; color: $font-color;
+  &:hover { @include gradient($color2, $color1); }
+  &:active { background: darken(mix($color1, $color2), 10%); box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.4); }
+}
+@mixin font-face($font-name, $file-name, $path: '../fonts/', $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($path + $file-name + '.eot');
+    src: url($path + $file-name + '.eot?#iefix') format('embedded-opentype'),
+         url($path + $file-name + '.otf') format('opentype'),
+         url($path + $file-name + '.svg') format('svg'),
+         url($path + $file-name + '.ttf') format('truetype'),
+         url($path + $file-name + '.woff') format('woff'),
+         url($path + $file-name + '.woff2') format('woff2');
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-@font-face {
-  font-family: "PFAgoraSansPro-Regular";
-  src: url("../fonts/pfagorasanspro-reg.eot");
-  src: url("../fonts/pfagorasanspro-reg.eot?#iefix") format("embedded-opentype"),
-  url("../fonts/pfagorasanspro-reg.otf") format("opentype"),
-  url("../fonts/pfagorasanspro-reg.svg") format("svg"),
-  url("../fonts/pfagorasanspro-reg.ttf") format("truetype"),
-  url("../fonts/pfagorasanspro-reg.woff") format("woff"),
-  url("../fonts/pfagorasanspro-reg.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "PFAgoraSansPro-XThin";
-  src: url("../fonts/pfagorasanspro-xthin.eot");
-  src: url("../fonts/pfagorasanspro-xthin.eot?#iefix") format("embedded-opentype"),
-  url("../fonts/pfagorasanspro-xthin.otf") format("opentype"),
-  url("../fonts/pfagorasanspro-xthin.svg") format("svg"),
-  url("../fonts/pfagorasanspro-xthin.ttf") format("truetype"),
-  url("../fonts/pfagorasanspro-xthin.woff") format("woff"),
-  url("../fonts/pfagorasanspro-xthin.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
+@include font-face('PFAgoraSansPro-Regular', 'pfagorasanspro-reg');
+@include font-face('PFAgoraSansPro-XThin', 'pfagorasanspro-xthin');
 
 body { background: $main-background; font-family: Arial, sans-serif; font-size: 14px; }
 .container { width: 950px; margin: 100px auto 0; column-count: 4; column-gap: 20px; }
@@ -61,37 +60,52 @@ body { background: $main-background; font-family: Arial, sans-serif; font-size: 
 .author,
 .offer-author { display: inline-block; vertical-align: top; }
 .offer-author,
-.comment-author { width: 30px; height: 30px; border-radius: 15px; margin-right: 10px; padding: 3px; border: 1px solid $offer-border-color; }
+.comment-author { width: 30px; height: 30px; border-radius: 15px; margin-right: 5px; padding: 3px; border: 1px solid $offer-border-color; }
 .author {
   span { display: block; font-size: 11px; font-style: italic; color: $offer-text-color; }
   .name { font-family: "PFAgoraSansPro-XThin", sans-serif; font-size: 12px; font-style: normal; color: $link-color; }
 }
 
 .popup {
-  display: none; position: fixed; top: 50px; left: 50%; margin-left: -405px; width: 810px; min-height: 555px; z-index: 10; background: #fff; border-radius: 5px;
+  display: none; position: fixed; top: 50px; bottom: 50px; left: 50%; margin-left: -405px; width: 810px; height: 1000px; z-index: 10; background: #fff; border-radius: 5px;
   .author-block { float: left; width: 100%; padding: 5px 10px; border-bottom: 1px solid $line-color; }
   .offer-author { display: inline-block; vertical-align: middle; margin-left: 25px; width: 76px; height: 76px; border-radius: 38px; }
-  .close { float: right; color: $offer-text-color; }
+  .close { float: right; color: $offer-text-color; cursor: pointer; }
   .author {
-    display: inline-block; vertical-align: middle;
+    display: inline-block; vertical-align: middle; width: 190px;
     span { display: block; font-size: 14px; font-style: italic; color: $offer-text-color; }
     .name { font-family: "PFAgoraSansPro-XThin", sans-serif; font-size: 22px; font-style: normal; color: $link-color; }
   }
+  .add-friend-button { display: inline-block; vertical-align: middle; @include button(140px, #fff, #b652a7, #a2218d); }
   &-left-block {
-    float: left; width: 640px; border-right: 1px solid $line-color; padding: 20px 30px 30px 40px; font-family: "PFAgoraSansPro-Regular", sans-serif;
+    float: left; width: 640px; border-right: 1px solid $line-color; padding: 15px 30px 30px 40px; font-family: "PFAgoraSansPro-Regular", sans-serif;
     .offer-cover { width: 100%; height: auto; border-radius: 0; margin: 10px 0; }
     &-title { font-size: 24px; }
     &-topic { font-size: 16px; color: $offer-text-color; }
     &-description { font-family: Arial, sans-serif; }
   }
+  &-right-block {
+    float: right; width: 170px;
+    .popup-button {
+      margin: 0 auto 15px; @include button(125px, #9c9da1, #d4d4d4, $offer-author-background);
+      &:first-child { margin-top: 70px; }
+    }
+  }
   .comments {
     background: $offer-author-background; font-size: 12px; color: $offer-text-color; clear: both;
     .comment-item,
-    .add-comment{ padding: 20px 30px 20px 40px; border-top: 1px solid $line-color; }
-    .comment-author { display: inline-block; vertical-align: top; width: 50px; height: 50px; border-radius: 25px; margin-right: 30px; }
+    .add-comment,
+    .popup-list { padding: 20px 30px 20px 40px; border-top: 1px solid $line-color; }
     .comment-text,
     .comment-section { display: inline-block; vertical-align: top; width: 85%; }
     .comment-section { height: 55px; padding: 5px 10px; resize: none; }
   }
+  .comment-author { display: inline-block; vertical-align: top; width: 50px; height: 50px; border-radius: 25px; margin-right: 30px; }
+  &-list {
+    padding: 10px 30px 18px 40px;
+    &-text { font-family: "PFAgoraSansPro-Regular", sans-serif; font-size: 16px; }
+    .comment-author { margin: 8px 5px; }
+  }
 }
-.overlay { display: none; position: fixed; top: 0; left: 0; min-height: 100%; min-width:100%; z-index: 5; background: rgba(0, 0, 0, 0.4); cursor: pointer; }
+.overlay { display: none; position: fixed; top: 0; left: 0; min-height: 1200px; min-width: 100%; z-index: 5; background: rgba(0, 0, 0, 0.4); cursor: pointer; overflow-y: scroll; }
+

@@ -1,7 +1,22 @@
 var controller = (function() {
   var basket = []; // приватная переменная
+
+  function getAllOffers() {
+    $.ajax({
+      type: "GET",
+      url: 'http://127.0.0.1:3000/db',
+      dataType: 'json',
+      //async: false,
+      //data: formData,
+      success: function (data) {
+        var _slidesTemplate = Handlebars.compile($('#offers-template').html());
+        $('.js-container').html(_slidesTemplate(data));
+      }
+    })
+  }
+
   return { // методы доступные извне
-    addItem: function(values) {
+    /*addItem: function(values) {
       basket.push(values);
     },
     getItemCount: function() {
@@ -13,6 +28,39 @@ var controller = (function() {
         p+= basket[q].price;
       }
       return p;
+    },*/
+    authorize: function (user) {
+      $.ajax({
+        type: "GET",
+        url: 'http://127.0.0.1:3000/db',
+        dataType: 'json',
+        //async: false,
+        //data: formData,
+        success: function (data) {
+          console.log(user.fullName);
+          data.users.find(function(item) {
+            console.log(item.fullName);
+            if (item.fullName === user.fullName) {
+              alert(item.userId);
+              getAllOffers();
+            } /*else {
+              $.ajax({
+                type: "POST",
+                url: 'http://127.0.0.1:3000/db',
+                dataType: 'json',
+                data: user,
+                success: function () {
+                  alert("Success!");
+                  getAllOffers();
+                }
+              })
+            }*/
+          });
+        }
+      })
+    },
+    init: function () {
+
     }
   }
 }());
@@ -20,7 +68,7 @@ var controller = (function() {
 function sendJSON(formData) {
   $.ajax({
     type: "POST",
-    url: 'http://127.0.0.1:3000/offers',
+    url: 'http://127.0.0.1:3000/database',
     dataType: 'json',
     //async: false,
     data: formData,
@@ -30,23 +78,11 @@ function sendJSON(formData) {
   })
 }
 
-function getAllOffers() {
-  $.ajax({
-    type: "GET",
-    url: /*'http://127.0.0.1:3000/offers'*/'../offers.json',
-    dataType: 'json',
-    //async: false,
-    //data: formData,
-    success: function (data) {
-      var _slidesTemplate = Handlebars.compile($('#offers-template').html());
-      $('.js-container').html(_slidesTemplate(data));
-    }
-  })
-}
+
 function getOffer(id) {
   $.ajax({
     type: "GET",
-    url: '../offers.json',
+    url: '../db.json',
     dataType: 'json',
     success: function (data) {
       data.offers.find(function(item, i) {
@@ -75,10 +111,12 @@ function getOffer(id) {
 }*/
 
 $(document).ready(function () {
-  var obj = {"author": "qwerty", "title": "qwerty"};
-  //sendJSON(obj);
+  var user = {
+    "fullName": "Котофей Котофеич",
+    "userImage": "http://i.imgur.com/187Y4u3.png"
+  };
 
-  getAllOffers();
+  controller.authorize(user);
 
   $(document).on('click', '.more-button', function () {
     getOffer(parseInt($(this).data('id')));

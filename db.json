@@ -1,4 +1,46 @@
 {
+  "users": [
+    {
+      "userId": 0,
+      "fullName": "Васька Дурачок",
+      "userImage": "http://i.imgur.com/187Y4u3.png"
+    },
+    {
+      "userId": 1,
+      "fullName": "Борис Завоеватель",
+      "userImage": "http://i.imgur.com/vDhhizN.jpg?1"
+    },
+    {
+      "userId": 2,
+      "fullName": "Барсик Прекрасный",
+      "userImage": "http://1.bp.blogspot.com/-WWXXNsEqEks/TrCiZ7tPs_I/AAAAAAAAAfM/FGpji7PE5nU/s1600/bakeneko.png"
+    },
+    {
+      "userId": 3,
+      "fullName": "",
+      "userImage": "http://i.imgur.com/aal1oyS.jpg"
+    },
+    {
+      "userId": 4,
+      "fullName": "",
+      "userImage": "http://i.imgur.com/ZlABY2B.jpg?1"
+    },
+    {
+      "userId": 5,
+      "fullName": "",
+      "userImage": "http://i.imgur.com/IkLetkK.png"
+    },
+    {
+      "userId": 6,
+      "fullName": "",
+      "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
+    },
+    {
+      "userId": 7,
+      "fullName": "",
+      "userImage": "http://i.imgur.com/k8yNOXN.png"
+    }
+  ],
   "offers": [
     {
       "offerId": 0,
@@ -13,8 +55,42 @@
       "actualTime": "Блаблабла",
       "location": "Блаблабла",
       "imageURL": "http://www.gandex.ru/upl/oboi/gandex.ru-19837_170b5710d62943a527d713f24b6b90e6.jpg",
-      "likes": 15,
-      "added": 7,
+      "likes": [
+        {
+          "userId": 3,
+          "userImage": "http://i.imgur.com/aal1oyS.jpg"
+        },
+        {
+          "userId": 2,
+          "userImage": "http://1.bp.blogspot.com/-WWXXNsEqEks/TrCiZ7tPs_I/AAAAAAAAAfM/FGpji7PE5nU/s1600/bakeneko.png"
+        },
+        {
+          "userId": 1,
+          "userImage": "http://i.imgur.com/vDhhizN.jpg?1"
+        },
+        {
+          "userId": 4,
+          "userImage": "http://i.imgur.com/ZlABY2B.jpg?1"
+        }
+      ],
+      "added": [
+        {
+          "userId": 3,
+          "userImage": "http://i.imgur.com/aal1oyS.jpg"
+        },
+        {
+          "userId": 2,
+          "userImage": "http://1.bp.blogspot.com/-WWXXNsEqEks/TrCiZ7tPs_I/AAAAAAAAAfM/FGpji7PE5nU/s1600/bakeneko.png"
+        },
+        {
+          "userId": 1,
+          "userImage": "http://i.imgur.com/vDhhizN.jpg?1"
+        },
+        {
+          "userId": 4,
+          "userImage": "http://i.imgur.com/ZlABY2B.jpg?1"
+        }
+      ],
       "comments": [
         {
           "commentId": 0,

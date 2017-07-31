@@ -3,7 +3,10 @@ var
   watch = require('gulp-watch'),
   sass = require('gulp-sass'),
   postcss = require('gulp-postcss'),
-  autoprefixer = require('autoprefixer');
+  autoprefixer = require('autoprefixer'),
+  concat = require('gulp-concat'),
+  plumber = require("gulp-plumber"),
+  connect = require('gulp-connect');
 
 var path = {
   build: {
@@ -28,24 +31,37 @@ var path = {
     html: 'src/*.html',
     js: 'src/javascripts/**/*.js',
     style: 'src/stylesheets/style.scss'
-  }
+  },
+  outputDir: 'public/'
 };
+
+gulp.task('connect', function(){
+  connect.server({
+    root: [path.outputDir],
+    port: 9999,
+    livereload: true
+  });
+});
 
 gulp.task('html:build', function () {
   gulp.src(path.src.html)
-    .pipe(gulp.dest(path.build.html));
+    .pipe(gulp.dest(path.build.html))
+    .pipe(connect.reload());
 });
 
 gulp.task('style:build', function () {
   gulp.src(path.src.style)
     .pipe(sass())
     .pipe(postcss([autoprefixer()]))
-    .pipe(gulp.dest(path.build.style));
+    .pipe(gulp.dest(path.build.style))
+    .pipe(connect.reload());
 });
 
 gulp.task('js:build', function () {
   gulp.src(path.src.js)
-    .pipe(gulp.dest(path.build.js));
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest(path.build.js))
+    .pipe(connect.reload());
 });
 
 /*gulp.task('img:build', function () {
@@ -64,4 +80,10 @@ gulp.task('watch', function() {
   gulp.watch([path.watch.js], ['js:build']);
 });
 
-gulp.task('build', ['html:build', 'style:build', 'js:build'/*, 'img:build', 'fonts:build'*/]);
+gulp.task('build', [
+  'html:build',
+  'style:build',
+  'js:build'/*, 'img:build', 'fonts:build'*/
+]);
+
+gulp.task('default', ['build', 'watch', 'connect']);
