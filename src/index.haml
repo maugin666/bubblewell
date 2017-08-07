@@ -29,6 +29,15 @@
       .author
         %span.name {{author.fullName}}
         %span предлагает
+    .comments
+      {{#each comments}}
+      .comment-item
+        %img.comment-author{src: "{{userImage}}"}
+        .comment-text {{comment}}
+      {{/each}}
+      .add-comment
+        %img.user.comment-author
+        %input.comment-section{placeholder: "Комментировать"}
   {{/each}}
 
 %script#popup-template{type: "text/x-handlebars-template"}
@@ -50,26 +59,26 @@
     .popup-button Добавить к себе
     .popup-button Мне нравится
     .popup-button Комментировать
-  .comments
-    {{#each comments}}
-    .comment-item
-      %img.comment-author{src: "{{userImage}}"}
-      .comment-text {{comment}}
+  .reviews
+    {{#each reviews}}
+    .review-item
+      %img.review-author{src: "{{userImage}}"}
+      .review-text {{review}}
     {{/each}}
-    .add-comment
-      %img.comment-author{src: "{{author.userImage}}"}
-      %textarea.comment-section{placeholder: "Комментировать"}
+    .add-review
+      %img.user.review-author
+      %textarea.review-section{placeholder: "Комментировать"}
   {{#if added.length}}
   .popup-list.popup-added
     .popup-list-text {{added.length}} добавили себе
     {{#each added}}
-    %img.comment-author{src: "{{userImage}}"}
+    %img.review-author{src: "{{userImage}}"}
     {{/each}}
   {{/if}}
   {{#if likes.length}}
   .popup-list.popup-likes
     .popup-list-text {{likes.length}} нравится
     {{#each likes}}
-    %img.comment-author{src: "{{userImage}}"}
+    %img.review-author{src: "{{userImage}}"}
     {{/each}}
   {{/if}}

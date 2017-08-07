@@ -1,10 +1,14 @@
 var controller = (function() {
-  var basket = []; // приватная переменная
+  var user = {
+    id: 6,
+    fullName: "Котофей Котофеич",
+    userImage: "http://i.imgur.com/187Y4u3.png"
+  };
 
   function getAllOffers() {
     $.ajax({
       type: "GET",
-      url: 'http://127.0.0.1:3000/db',
+      url: 'http://127.0.0.1:8000/offers',
       dataType: 'json',
       //async: false,
       //data: formData,
@@ -14,8 +18,25 @@ var controller = (function() {
       }
     })
   }
+  
+  function counter() {
+    
+  }
 
-  return { // методы доступные извне
+  function _listeners() {
+    $('.user').attr('src', user.userImage);
+    $(document)
+      .on('click', '.more-button', function () {
+      getOffer(parseInt($(this).data('id')));
+      $('.popup').show();
+      $('.overlay').show();
+    }).on('click', '.overlay, .close-icon', function () {
+      $('.popup').hide();
+      $('.overlay').hide();
+    });
+  }
+
+  return {
     /*addItem: function(values) {
       basket.push(values);
     },
@@ -29,38 +50,25 @@ var controller = (function() {
       }
       return p;
     },*/
-    authorize: function (user) {
-      $.ajax({
+    authorize: function () {
+      /*$.ajax({
         type: "GET",
-        url: 'http://127.0.0.1:3000/db',
+        url: 'http://127.0.0.1:8000/users',
         dataType: 'json',
-        //async: false,
-        //data: formData,
         success: function (data) {
-          console.log(user.fullName);
-          data.users.find(function(item) {
-            console.log(item.fullName);
-            if (item.fullName === user.fullName) {
-              alert(item.userId);
-              getAllOffers();
-            } /*else {
-              $.ajax({
-                type: "POST",
-                url: 'http://127.0.0.1:3000/db',
-                dataType: 'json',
-                data: user,
-                success: function () {
-                  alert("Success!");
-                  getAllOffers();
-                }
-              })
-            }*/
+          console.log(user);
+          data.users.find(function(item, i) {
+            if (item.userId === user.id) {
+              $('.user').attr('src', item.userImage);
+            }
           });
         }
-      })
+      })*/
+      $('.user').attr('src', user.userImage);
     },
     init: function () {
-
+      getAllOffers();
+      _listeners();
     }
   }
 }());
@@ -82,7 +90,7 @@ function sendJSON(formData) {
 function getOffer(id) {
   $.ajax({
     type: "GET",
-    url: '../db.json',
+    url: 'http://127.0.0.1:8000/offers',
     dataType: 'json',
     success: function (data) {
       data.offers.find(function(item, i) {
@@ -94,38 +102,10 @@ function getOffer(id) {
     }
   })
 }
-/*function getUser(id) {
-  $.ajax({
-    type: "GET",
-    url: '../users.json',
-    dataType: 'json',
-    success: function (data) {
-      data.users.find(function(item, i) {
-        if (item.userId === id) {
-          console.log(item);
-        }
-      });
-
-    }
-  })
-}*/
 
 $(document).ready(function () {
-  var user = {
-    "fullName": "Котофей Котофеич",
-    "userImage": "http://i.imgur.com/187Y4u3.png"
-  };
 
-  controller.authorize(user);
-
-  $(document).on('click', '.more-button', function () {
-    getOffer(parseInt($(this).data('id')));
-    $('.popup').show();
-    $('.overlay').show();
-  });
-  $(document).on('click', '.overlay, .close-icon', function () {
-    $('.popup').hide();
-    $('.overlay').hide();
-  });
+  controller.init();
+  controller.authorize();
 });
 

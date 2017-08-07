@@ -86,4 +86,4 @@ gulp.task('build', [
   'js:build'/*, 'img:build', 'fonts:build'*/
 ]);
 
-gulp.task('default', ['build', 'watch', 'connect']);
+gulp.task('default', ['build', 'watch'/*, 'connect'*/]);

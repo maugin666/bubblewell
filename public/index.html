@@ -34,6 +34,18 @@
 <span>предлагает</span>
 </div>
 </div>
+<div class='comments'>
+{{#each comments}}
+<div class='comment-item'>
+<img class='comment-author' src='{{userImage}}'>
+<div class='comment-text'>{{comment}}</div>
+</div>
+{{/each}}
+<div class='add-comment'>
+<img class='user comment-author'>
+<input class='comment-section' placeholder='Комментировать'>
+</div>
+</div>
 </div>
 {{/each}}
 </script>
@@ -61,23 +73,23 @@
 <div class='popup-button'>Мне нравится</div>
 <div class='popup-button'>Комментировать</div>
 </div>
-<div class='comments'>
-{{#each comments}}
-<div class='comment-item'>
-<img class='comment-author' src='{{userImage}}'>
-<div class='comment-text'>{{comment}}</div>
+<div class='reviews'>
+{{#each reviews}}
+<div class='review-item'>
+<img class='review-author' src='{{userImage}}'>
+<div class='review-text'>{{review}}</div>
 </div>
 {{/each}}
-<div class='add-comment'>
-<img class='comment-author' src='{{author.userImage}}'>
-<textarea class='comment-section' placeholder='Комментировать'></textarea>
+<div class='add-review'>
+<img class='user review-author'>
+<textarea class='review-section' placeholder='Комментировать'></textarea>
 </div>
 </div>
 {{#if added.length}}
 <div class='popup-list popup-added'>
 <div class='popup-list-text'>{{added.length}} добавили себе</div>
 {{#each added}}
-<img class='comment-author' src='{{userImage}}'>
+<img class='review-author' src='{{userImage}}'>
 {{/each}}
 </div>
 {{/if}}
@@ -85,7 +97,7 @@
 <div class='popup-list popup-likes'>
 <div class='popup-list-text'>{{likes.length}} нравится</div>
 {{#each likes}}
-<img class='comment-author' src='{{userImage}}'>
+<img class='review-author' src='{{userImage}}'>
 {{/each}}
 </div>
 {{/if}}

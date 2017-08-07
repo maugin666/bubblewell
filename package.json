@@ -1,13 +1,19 @@
 {
   "name": "bubblewell",
-  "version": "0.1.0",
-  "description": "",
-  "main": "server.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "author": "Levanova Evgeniya",
   "dependencies": {
+    "body-parser": "~1.16.0",
+    "consolidate": "^0.14.5",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "hbs": "~4.0.1",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.2",
     "autoprefixer": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -15,7 +21,6 @@
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^7.0.0",
     "gulp-sass": "^3.1.0",
-    "gulp-watch": "^4.3.11",
-    "json-server": "^0.11.2"
+    "gulp-watch": "^4.3.11"
   }
 }
