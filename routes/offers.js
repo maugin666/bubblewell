@@ -29,9 +29,15 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-router.post('/', function(req, res, next) {
-  fs.writeFile('offers.json', req.params, 'utf-8');
-  res.sendStatus(200);
+router.post('/:id', function(req, res, next) {
+  if (req.params.id !== undefined) {
+    fs.readFile('offers.json', function (err, data) {
+      var obj = JSON.parse(data);
+      obj.offers[req.params.id].comments.push(req.body);
+      fs.writeFile('offers.json', JSON.stringify(obj), 'utf-8');
+      res.send(obj.offers);
+    });
+  }
 });
 
 module.exports = router;
