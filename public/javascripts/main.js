@@ -15093,11 +15093,14 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 var controller = (function() {
-  var user = {
-    id: 6,
-    fullName: "Котофей Котофеич",
-    userImage: "http://i.imgur.com/187Y4u3.png"
-  };
+  var
+    user = {
+    userId: 6,
+    fullName: "Мурзик Забияка",
+    userImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
+  },
+    offers = [],
+    users = [];
 
   function getAllOffers() {
     $.ajax({
@@ -15108,17 +15111,59 @@ var controller = (function() {
       //data: formData,
       success: function (data) {
         var _slidesTemplate = Handlebars.compile($('#offers-template').html());
-        $('.js-container').html(_slidesTemplate(data));
+
+        data.offers.forEach(function (item) {
+          offers.push(item);
+          $('.js-container').append(_slidesTemplate({offer: item, user: user}));
+        });
       }
     })
   }
+
+  function getAllUsers() {
+    $.ajax({
+      type: "GET",
+      url: 'http://127.0.0.1:8000/users',
+      dataType: 'json',
+      //async: false,
+      //data: formData,
+      success: function (data) {
+        data.users.forEach(function (item) {
+          users.push(item);
+        });
+      }
+    })
+  }
+
+  /*function getUser(id) {
+    users.find(function(item) {
+      if (item.id !== id) {
+        return item;
+      }
+    });
+  }*/
+
+  /*function getOffer(id) {
+    $.ajax({
+      type: "GET",
+      url: 'http://127.0.0.1:8000/offers',
+      dataType: 'json',
+      success: function (data) {
+        data.offers.find(function(item, i) {
+          if (item.offerId === id) {
+            var _slidesTemplate = Handlebars.compile($('#popup-template').html());
+            $('.js-popup').html(_slidesTemplate({offer: item, user: user}));
+          }
+        });
+      }
+    })
+  }*/
   
   function counter() {
     
   }
 
   function _listeners() {
-    $('.user').attr('src', user.userImage);
     $(document)
       .on('click', '.more-button', function () {
       getOffer(parseInt($(this).data('id')));
@@ -15131,86 +15176,78 @@ var controller = (function() {
   }
 
   return {
-    /*addItem: function(values) {
-      basket.push(values);
-    },
-    getItemCount: function() {
-      return basket.length;
-    },
-    getTotal: function() {
-      var q = this.getItemCount(),p=0;
-      while(q--){
-        p+= basket[q].price;
-      }
-      return p;
-    },*/
-    authorize: function () {
-      /*$.ajax({
-        type: "GET",
-        url: 'http://127.0.0.1:8000/users',
-        dataType: 'json',
-        success: function (data) {
-          console.log(user);
-          data.users.find(function(item, i) {
-            if (item.userId === user.id) {
-              $('.user').attr('src', item.userImage);
-            }
-          });
-        }
-      })*/
-      $('.user').attr('src', user.userImage);
-    },
     init: function () {
       getAllOffers();
+      getAllUsers();
       _listeners();
+      offer.init();
     }
   }
 }());
 
-function sendJSON(formData) {
-  $.ajax({
-    type: "POST",
-    url: 'http://127.0.0.1:3000/database',
-    dataType: 'json',
-    //async: false,
-    data: formData,
-    success: function () {
-      alert("Thanks!");
-    }
-  })
-}
-
-
-function getOffer(id) {
-  $.ajax({
-    type: "GET",
-    url: 'http://127.0.0.1:8000/offers',
-    dataType: 'json',
-    success: function (data) {
-      data.offers.find(function(item, i) {
-        if (item.offerId === id) {
-          var _slidesTemplate = Handlebars.compile($('#popup-template').html());
-          $('.js-popup').html(_slidesTemplate(item));
-        }
-      });
-    }
-  })
-}
-
-$(document).ready(function () {
-
+$(window).ready(function () {
   controller.init();
-  controller.authorize();
 });
 
 
 var offer = (function() {
-  var basket = [];
+
+  function sendComment(comment, offerId) {
+    offers.find(function(item) {
+      if (item.id !== offerId) {
+        offers.comments.push({
+          commentId: offers.comments.length + 1,
+          userId: user.userId,
+          userImage: user.userImage,
+          comment: comment
+        });
+        $.ajax({
+          type: "POST",
+          url: 'http://127.0.0.1:3000/offers',
+          dataType: 'json',
+          //async: false,
+          data: JSON.stringify(offers),
+          success: function () {
+            alert("Comment added!");
+          }
+        })
+      }
+    });
+  }
+
+  function _listeners() {
+    $(document)
+      .on('submit', '.add-review', function () {
+        $('.review-section').val();
+        $('.overlay').show();
+      }).on('submit', '.add-comment', function () {
+        sendComment($(this).find('.comment-section').val(), parseInt($(this).data('id')));
+    });
+  }
+
   return {
-    likeIt: function(values) {
+    init: function () {
+      _listeners();
+    },
+    likeOffer: function(values) {
       basket.push(values);
     },
-    addIt: function() {
+    addOffer: function() {
+      return basket.length;
+    },
+    deleteOffer: function() {
+      return basket.length;
+    },
+    addComment: function() {
+      return basket.length;
+    },
+    deleteComment: function() {
+      return basket.length;
+    },
+    addReview: function() {
+      return basket.length;
+    },
+    deleteReview: function() {
       return basket.length;
     }
   }

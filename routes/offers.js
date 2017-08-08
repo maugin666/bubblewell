@@ -29,4 +29,9 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next) {
+  fs.writeFile('offers.json', req.params, 'utf-8');
+  res.sendStatus(200);
+});
+
 module.exports = router;

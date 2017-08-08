@@ -3,10 +3,10 @@
     {
       "offerId": 0,
       "author": {
-          "userId": 0,
-          "fullName": "Васька Дурачок",
-          "userImage": "http://i.imgur.com/187Y4u3.png"
-        },
+        "userId": 0,
+        "fullName": "Васька Дурачок",
+        "userImage": "http://i.imgur.com/187Y4u3.png"
+      },
       "title": "Первый заголовок",
       "description": "Блаблабла",
       "topic": "Блаблабла",
@@ -81,10 +81,10 @@
     {
       "offerId": 1,
       "author": {
-          "userId": 1,
-          "fullName": "Борис Завоеватель",
-          "userImage": "http://i.imgur.com/vDhhizN.jpg?1"
-        },
+        "userId": 1,
+        "fullName": "Борис Завоеватель",
+        "userImage": "http://i.imgur.com/vDhhizN.jpg?1"
+      },
       "title": "Second заголовок",
       "description": "Блаблабла",
       "topic": "Блаблабла",
@@ -97,10 +97,10 @@
     {
       "offerId": 2,
       "author": {
-          "userId": 2,
-          "fullName": "Барсик Прекрасный",
-          "userImage": "http://1.bp.blogspot.com/-WWXXNsEqEks/TrCiZ7tPs_I/AAAAAAAAAfM/FGpji7PE5nU/s1600/bakeneko.png"
-        },
+        "userId": 2,
+        "fullName": "Барсик Прекрасный",
+        "userImage": "http://1.bp.blogspot.com/-WWXXNsEqEks/TrCiZ7tPs_I/AAAAAAAAAfM/FGpji7PE5nU/s1600/bakeneko.png"
+      },
       "title": "qwerty",
       "description": "qwerty",
       "topic": "qwerty",

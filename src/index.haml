@@ -12,73 +12,72 @@
 
 
 %script#offers-template{type: "text/x-handlebars-template"}
-  {{#each offers}}
   .offer-item
-    .more-button{data: {id: "{{offerId}}"}} Ознакомиться с предложением
-    %img.offer-cover{src: "{{imageURL}}"}
+    .more-button{data: {id: "{{offer.offerId}}"}} Ознакомиться с предложением
+    %img.offer-cover{src: "{{offer.imageURL}}"}
     .offer-info
-      .theme {{title}}
-      .info-text.tag {{topic}}
-      .info-text.date {{actualTime}}
-      .info-text.location {{location}}
+      .theme {{offer.title}}
+      .info-text.tag {{offer.topic}}
+      .info-text.date {{offer.actualTime}}
+      .info-text.location {{offer.location}}
       .counters
-        %span.likes {{#if likes.length}} {{likes.length}} {{else}} 0 {{/if}} нравится
-        %span.added {{#if added.length}} {{added.length}} {{else}} 0 {{/if}} добавили себе
+        %span.likes {{#if offer.likes.length}} {{offer.likes.length}} {{else}} 0 {{/if}} нравится
+        %span.added {{#if offer.added.length}} {{offer.added.length}} {{else}} 0 {{/if}} добавили себе
     .offer-comment-block
-      %img.offer-author{src: "{{author.userImage}}"}
+      %img.offer-author{src: "{{offer.author.userImage}}"}
       .author
-        %span.name {{author.fullName}}
+        %span.name {{offer.author.fullName}}
         %span предлагает
     .comments
-      {{#each comments}}
+      {{#each offer.comments}}
       .comment-item
         %img.comment-author{src: "{{userImage}}"}
         .comment-text {{comment}}
       {{/each}}
-      .add-comment
-        %img.user.comment-author
+      %form.add-comment{data: {id: "{{offer.offerId}}"}}
+        %img.user.comment-author{src: "{{user.userImage}}"}
         %input.comment-section{placeholder: "Комментировать"}
-  {{/each}}
+
 
 %script#popup-template{type: "text/x-handlebars-template"}
   .author-block
-    %img.offer-author{src: "{{author.userImage}}"}
+    %img.offer-author{src: "{{offer.author.userImage}}"}
     .author
-      %span.name {{author.fullName}}
+      %span.name {{offer.author.fullName}}
       %span нуждается в этом
     .add-friend-button Добавить в друзья
     .close
       %span Закрыть
       %span.close-icon X
   .popup-left-block
-    .popup-left-block-title {{title}}
-    .popup-left-block-topic {{topic}}
-    %img.offer-cover{src: "{{imageURL}}"}
-    .popup-left-block-description {{description}}
+    .popup-left-block-title {{offer.title}}
+    .popup-left-block-topic {{offer.topic}}
+    %img.offer-cover{src: "{{offer.imageURL}}"}
+    .popup-left-block-description {{offer.description}}
   .popup-right-block
     .popup-button Добавить к себе
     .popup-button Мне нравится
     .popup-button Комментировать
   .reviews
-    {{#each reviews}}
+    {{#each offer.reviews}}
     .review-item
       %img.review-author{src: "{{userImage}}"}
       .review-text {{review}}
     {{/each}}
-    .add-review
-      %img.user.review-author
+    %form.add-review
+      %img.user.review-author{src: "{{user.userImage}}"}
       %textarea.review-section{placeholder: "Комментировать"}
-  {{#if added.length}}
+  {{#if offer.added.length}}
   .popup-list.popup-added
-    .popup-list-text {{added.length}} добавили себе
-    {{#each added}}
+    .popup-list-text {{offer.added.length}} добавили себе
+    {{#each offer.added}}
     %img.review-author{src: "{{userImage}}"}
     {{/each}}
   {{/if}}
-  {{#if likes.length}}
+  {{#if offer.likes.length}}
   .popup-list.popup-likes
-    .popup-list-text {{likes.length}} нравится
-    {{#each likes}}
+    .popup-list-text {{offer.likes.length}} нравится
+    {{#each offer.likes}}
     %img.review-author{src: "{{userImage}}"}
     {{/each}}
   {{/if}}

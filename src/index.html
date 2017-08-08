@@ -13,47 +13,45 @@
 </body>
 </html>
 <script id='offers-template' type='text/x-handlebars-template'>
-{{#each offers}}
 <div class='offer-item'>
-<div class='more-button' data-id='{{offerId}}'>Ознакомиться с предложением</div>
-<img class='offer-cover' src='{{imageURL}}'>
+<div class='more-button' data-id='{{offer.offerId}}'>Ознакомиться с предложением</div>
+<img class='offer-cover' src='{{offer.imageURL}}'>
 <div class='offer-info'>
-<div class='theme'>{{title}}</div>
-<div class='info-text tag'>{{topic}}</div>
-<div class='info-text date'>{{actualTime}}</div>
-<div class='info-text location'>{{location}}</div>
+<div class='theme'>{{offer.title}}</div>
+<div class='info-text tag'>{{offer.topic}}</div>
+<div class='info-text date'>{{offer.actualTime}}</div>
+<div class='info-text location'>{{offer.location}}</div>
 <div class='counters'>
-<span class='likes'>{{#if likes.length}} {{likes.length}} {{else}} 0 {{/if}} нравится</span>
-<span class='added'>{{#if added.length}} {{added.length}} {{else}} 0 {{/if}} добавили себе</span>
+<span class='likes'>{{#if offer.likes.length}} {{offer.likes.length}} {{else}} 0 {{/if}} нравится</span>
+<span class='added'>{{#if offer.added.length}} {{offer.added.length}} {{else}} 0 {{/if}} добавили себе</span>
 </div>
 </div>
 <div class='offer-comment-block'>
-<img class='offer-author' src='{{author.userImage}}'>
+<img class='offer-author' src='{{offer.author.userImage}}'>
 <div class='author'>
-<span class='name'>{{author.fullName}}</span>
+<span class='name'>{{offer.author.fullName}}</span>
 <span>предлагает</span>
 </div>
 </div>
 <div class='comments'>
-{{#each comments}}
+{{#each offer.comments}}
 <div class='comment-item'>
 <img class='comment-author' src='{{userImage}}'>
 <div class='comment-text'>{{comment}}</div>
 </div>
 {{/each}}
-<div class='add-comment'>
-<img class='user comment-author'>
+<form class='add-comment' data-id='{{offer.offerId}}'>
+<img class='user comment-author' src='{{user.userImage}}'>
 <input class='comment-section' placeholder='Комментировать'>
+</form>
 </div>
 </div>
-</div>
-{{/each}}
 </script>
 <script id='popup-template' type='text/x-handlebars-template'>
 <div class='author-block'>
-<img class='offer-author' src='{{author.userImage}}'>
+<img class='offer-author' src='{{offer.author.userImage}}'>
 <div class='author'>
-<span class='name'>{{author.fullName}}</span>
+<span class='name'>{{offer.author.fullName}}</span>
 <span>нуждается в этом</span>
 </div>
 <div class='add-friend-button'>Добавить в друзья</div>
@@ -63,10 +61,10 @@
 </div>
 </div>
 <div class='popup-left-block'>
-<div class='popup-left-block-title'>{{title}}</div>
-<div class='popup-left-block-topic'>{{topic}}</div>
-<img class='offer-cover' src='{{imageURL}}'>
-<div class='popup-left-block-description'>{{description}}</div>
+<div class='popup-left-block-title'>{{offer.title}}</div>
+<div class='popup-left-block-topic'>{{offer.topic}}</div>
+<img class='offer-cover' src='{{offer.imageURL}}'>
+<div class='popup-left-block-description'>{{offer.description}}</div>
 </div>
 <div class='popup-right-block'>
 <div class='popup-button'>Добавить к себе</div>
@@ -74,29 +72,29 @@
 <div class='popup-button'>Комментировать</div>
 </div>
 <div class='reviews'>
-{{#each reviews}}
+{{#each offer.reviews}}
 <div class='review-item'>
 <img class='review-author' src='{{userImage}}'>
 <div class='review-text'>{{review}}</div>
 </div>
 {{/each}}
-<div class='add-review'>
-<img class='user review-author'>
+<form class='add-review'>
+<img class='user review-author' src='{{user.userImage}}'>
 <textarea class='review-section' placeholder='Комментировать'></textarea>
+</form>
 </div>
-</div>
-{{#if added.length}}
+{{#if offer.added.length}}
 <div class='popup-list popup-added'>
-<div class='popup-list-text'>{{added.length}} добавили себе</div>
-{{#each added}}
+<div class='popup-list-text'>{{offer.added.length}} добавили себе</div>
+{{#each offer.added}}
 <img class='review-author' src='{{userImage}}'>
 {{/each}}
 </div>
 {{/if}}
-{{#if likes.length}}
+{{#if offer.likes.length}}
 <div class='popup-list popup-likes'>
-<div class='popup-list-text'>{{likes.length}} нравится</div>
-{{#each likes}}
+<div class='popup-list-text'>{{offer.likes.length}} нравится</div>
+{{#each offer.likes}}
 <img class='review-author' src='{{userImage}}'>
 {{/each}}
 </div>
