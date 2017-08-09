@@ -54,10 +54,10 @@
     .popup-left-block-topic {{offer.topic}}
     %img.offer-cover{src: "{{offer.imageURL}}"}
     .popup-left-block-description {{offer.description}}
-  .popup-right-block
-    .popup-button Добавить к себе
-    .popup-button Мне нравится
-    .popup-button Комментировать
+  .popup-right-block{data: {id: "{{offer.offerId}}"}}
+    .popup-button.add-offer Добавить к себе
+    .popup-button.like-offer Мне нравится
+    .popup-button.comment-offer Комментировать
   .reviews
     {{#each offer.reviews}}
     .review-item

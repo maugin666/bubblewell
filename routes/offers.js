@@ -33,9 +33,32 @@ router.post('/:id', function(req, res, next) {
   if (req.params.id !== undefined) {
     fs.readFile('offers.json', function (err, data) {
       var obj = JSON.parse(data);
+      console.log(req.body);
       obj.offers[req.params.id].comments.push(req.body);
       fs.writeFile('offers.json', JSON.stringify(obj), 'utf-8');
-      res.send(obj.offers);
+      res.send(obj);
+    });
+  }
+});
+
+router.post('/likes/:id', function(req, res, next) {
+  if (req.params.id !== undefined) {
+    fs.readFile('offers.json', function (err, data) {
+      var obj = JSON.parse(data);
+      obj.offers[req.params.id].likes.push(req.body);
+      fs.writeFile('offers.json', JSON.stringify(obj), 'utf-8');
+      res.send(obj);
+    });
+  }
+});
+
+router.delete('/likes/:id', function(req, res, next) {
+  if (req.params.id !== undefined) {
+    fs.readFile('offers.json', function (err, data) {
+      var obj = JSON.parse(data);
+      obj.offers[req.params.id].likes.splice(req.body.index, 1);
+      fs.writeFile('offers.json', JSON.stringify(obj), 'utf-8');
+      res.send(obj);
     });
   }
 });

@@ -15093,32 +15093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 var controller = (function() {
-  var
-    user = {
-    userId: 6,
-    fullName: "Мурзик Забияка",
-    userImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
-  },
-    offers = [],
-    users = [];
 
-  function getAllOffers() {
-    $.ajax({
-      type: "GET",
-      url: 'http://127.0.0.1:8000/offers',
-      dataType: 'json',
-      //async: false,
-      //data: formData,
-      success: function (data) {
-        var _slidesTemplate = Handlebars.compile($('#offers-template').html());
-
-        data.offers.forEach(function (item) {
-          offers.push(item);
-          $('.js-container').append(_slidesTemplate({offer: item, user: user}));
-        });
-      }
-    })
-  }
 
   function getAllUsers() {
     $.ajax({
@@ -15143,7 +15118,7 @@ var controller = (function() {
     });
   }*/
 
-  /*function getOffer(id) {
+  function getOffer(id) {
     $.ajax({
       type: "GET",
       url: 'http://127.0.0.1:8000/offers',
@@ -15157,7 +15132,7 @@ var controller = (function() {
         });
       }
     })
-  }*/
+  }
   
   function counter() {
     
@@ -15177,42 +15152,86 @@ var controller = (function() {
 
   return {
     init: function () {
-      getAllOffers();
       getAllUsers();
       _listeners();
       offer.init();
+    },
+    getAllOffers: function () {
+      $.ajax({
+        type: "GET",
+        url: 'http://127.0.0.1:8000/offers',
+        dataType: 'json',
+        success: function (data) {
+          var _slidesTemplate = Handlebars.compile($('#offers-template').html());
+          $('.js-container').html('');
+          data.offers.forEach(function (item) {
+            offers.push(item);
+            $('.js-container').append(_slidesTemplate({offer: item, user: user}));
+          });
+        }
+      })
     }
   }
 }());
 
-$(window).ready(function () {
+var
+  user = {
+    userId: 6,
+    fullName: "Мурзик Забияка",
+    userImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
+  },
+  offers = [],
+  users = [];
+
+$(document).ready(function () {
   controller.init();
+  controller.getAllOffers();
 });
 
 
 var offer = (function() {
 
   function sendComment(comment, offerId) {
-    offers.find(function(item) {
-      if (item.id !== offerId) {
-        offers.comments.push({
-          commentId: offers.comments.length + 1,
-          userId: user.userId,
-          userImage: user.userImage,
-          comment: comment
-        });
+    $.ajax({
+      type: "POST",
+      url: 'http://127.0.0.1:8000/offers/' + offerId,
+      dataType: 'json',
+      async: false,
+      data: {commentId: offers[offerId].comments.length, userId: user.userId, userImage: user.userImage, comment: comment},
+      success: function () {
+        controller.getAllOffers();
+      }
+    })
+  }
+
+  function likeOffer(offerId) {
+    if (offers[offerId].likes.indexOf(user) == -1) {
+      $.ajax({
+        type: "POST",
+        url: 'http://127.0.0.1:8000/offers/likes/' + offerId,
+        dataType: 'json',
+        async: false,
+        data: {userId: user.userId, userImage: user.userImage},
+        success: function () {
+          controller.getAllOffers();
+        }
+      });
+    }
+    offers[offerId].likes.some(function (item, i) {
+      if (item.userId == user.userId) {
         $.ajax({
-          type: "POST",
-          url: 'http://127.0.0.1:3000/offers',
+          type: "DELETE",
+          url: 'http://127.0.0.1:8000/offers/likes/' + offerId,
           dataType: 'json',
-          //async: false,
-          data: JSON.stringify(offers),
+          async: false,
+          data: {index: i},
           success: function () {
-            alert("Comment added!");
+            controller.getAllOffers();
           }
-        })
+        });
       }
     });
+
   }
 
   function _listeners() {
@@ -15220,8 +15239,14 @@ var offer = (function() {
       .on('submit', '.add-review', function () {
         $('.review-section').val();
         $('.overlay').show();
-      }).on('submit', '.add-comment', function () {
-        sendComment($(this).find('.comment-section').val(), parseInt($(this).data('id')));
+    })
+      .on('submit', '.add-comment', function (event) {
+        event.preventDefault();
+        sendComment($(this).find($('.comment-section')).val(), parseInt($(this).data('id')));
+    })
+      .on('click', '.like-offer', function (event) {
+      event.preventDefault();
+        likeOffer(parseInt($(this).parent().data('id')));
     });
   }
 
