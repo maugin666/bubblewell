@@ -301,6 +301,30 @@ body {
   .reviews .comment-section {
     height: 25px;
     font-size: 11px; }
+  .comments .close-icon,
+  .reviews .close-icon {
+    display: none; }
+  .comments .review-item,
+  .comments .comment-item,
+  .reviews .review-item,
+  .reviews .comment-item {
+    position: relative; }
+    .comments .review-item:hover .close-icon,
+    .comments .comment-item:hover .close-icon,
+    .reviews .review-item:hover .close-icon,
+    .reviews .comment-item:hover .close-icon {
+      display: inline;
+      position: absolute;
+      top: 2px;
+      right: 5px;
+      cursor: pointer; }
+  .comments .comment-text,
+  .reviews .comment-text {
+    height: 26px;
+    overflow: hidden;
+    font-size: 11px;
+    color: #000;
+    text-overflow: ellipsis; }
 
 .review-author {
   display: inline-block;
@@ -309,6 +333,10 @@ body {
   height: 50px;
   border-radius: 25px;
   margin-right: 30px; }
+
+.deleted,
+.hidden {
+  display: none; }
 
 .overlay {
   display: none;

@@ -1,34 +1,62 @@
 var controller = (function() {
 
-
-  function getAllUsers() {
-    $.ajax({
-      type: "GET",
-      url: 'http://127.0.0.1:8000/users',
-      dataType: 'json',
-      //async: false,
-      //data: formData,
-      success: function (data) {
-        data.users.forEach(function (item) {
-          users.push(item);
-        });
-      }
+  function _listeners() {
+    $(document)
+      .on('click', '.more-button', function () {
+      controller.getOffer(parseInt($(this).closest('.offer-item').data('id')));
+      $('.popup').show();
+      $('.overlay').show();
     })
+      .on('click', '.offer-item', function () {
+        var comments = $(this).find('.comments');
+
+        if (comments.hasClass('hidden')) {
+          comments.removeClass('hidden');
+        } else {
+          comments.addClass('hidden');
+        }
+      })
+      .on('click', '.overlay, .close .close-icon', function () {
+      $('.popup').hide();
+      $('.overlay').hide();
+    });
   }
 
-  /*function getUser(id) {
-    users.find(function(item) {
-      if (item.id !== id) {
-        return item;
-      }
+  Handlebars.registerHelper('limit', function (arr, limit) {
+    var newArr = arr.filter(function(item) {
+      return item.isDeleted === false;
     });
-  }*/
+    return newArr.slice(-limit);
+  });
 
-  function getOffer(id) {
+  return {
+    init: function() {
+      _listeners();
+      offer.init();
+    },
+    getAllOffers: function() {
+      $.ajax({
+        type: "GET",
+        url: '/offers',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+          var _slidesTemplate = Handlebars.compile($('#offers-template').html());
+          $('.js-container').html('');
+          offers.length = 0;
+          data.offers.forEach(function (item) {
+            offers.push(item);
+            $('.js-container').append(_slidesTemplate({offer: item, user: user}));
+          });
+        }
+      })
+    },
+    getOffer: function(id) {
     $.ajax({
       type: "GET",
-      url: 'http://127.0.0.1:8000/offers',
+      url: '/offers',
       dataType: 'json',
+      contentType: 'application/json',
       success: function (data) {
         data.offers.find(function(item, i) {
           if (item.offerId === id) {
@@ -39,44 +67,6 @@ var controller = (function() {
       }
     })
   }
-  
-  function counter() {
-    
-  }
-
-  function _listeners() {
-    $(document)
-      .on('click', '.more-button', function () {
-      getOffer(parseInt($(this).data('id')));
-      $('.popup').show();
-      $('.overlay').show();
-    }).on('click', '.overlay, .close-icon', function () {
-      $('.popup').hide();
-      $('.overlay').hide();
-    });
-  }
-
-  return {
-    init: function () {
-      getAllUsers();
-      _listeners();
-      offer.init();
-    },
-    getAllOffers: function () {
-      $.ajax({
-        type: "GET",
-        url: 'http://127.0.0.1:8000/offers',
-        dataType: 'json',
-        success: function (data) {
-          var _slidesTemplate = Handlebars.compile($('#offers-template').html());
-          $('.js-container').html('');
-          data.offers.forEach(function (item) {
-            offers.push(item);
-            $('.js-container').append(_slidesTemplate({offer: item, user: user}));
-          });
-        }
-      })
-    }
   }
 }());
 
@@ -86,8 +76,7 @@ var
     fullName: "Мурзик Забияка",
     userImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
   },
-  offers = [],
-  users = [];
+  offers = [];
 
 $(document).ready(function () {
   controller.init();

@@ -12,8 +12,8 @@
 
 
 %script#offers-template{type: "text/x-handlebars-template"}
-  .offer-item
-    .more-button{data: {id: "{{offer.offerId}}"}} Ознакомиться с предложением
+  .offer-item{data: {id: "{{offer.offerId}}"}}
+    .more-button Ознакомиться с предложением
     %img.offer-cover{src: "{{offer.imageURL}}"}
     .offer-info
       .theme {{offer.title}}
@@ -28,16 +28,16 @@
       .author
         %span.name {{offer.author.fullName}}
         %span предлагает
-    .comments
-      {{#each offer.comments}}
-      .comment-item
+    .comments.hidden
+      {{#each (limit offer.comments 5)}}
+      %div{data: {id: "{{commentId}}"}, class:"comment-item {{#if isDeleted}} deleted {{/if}}"}
+        %span.close-icon.js-delete-comment X
         %img.comment-author{src: "{{userImage}}"}
         .comment-text {{comment}}
       {{/each}}
       %form.add-comment{data: {id: "{{offer.offerId}}"}}
         %img.user.comment-author{src: "{{user.userImage}}"}
-        %input.comment-section{placeholder: "Комментировать"}
-
+        %textarea.comment-section{placeholder: "Комментировать", rows: "1"}
 
 %script#popup-template{type: "text/x-handlebars-template"}
   .author-block
@@ -58,15 +58,17 @@
     .popup-button.add-offer Добавить к себе
     .popup-button.like-offer Мне нравится
     .popup-button.comment-offer Комментировать
-  .reviews
-    {{#each offer.reviews}}
-    .review-item
+    .popup-button.js-delete-offer Удалить оффер
+  .reviews{data: {id: "{{offer.offerId}}"}}
+    {{#each (limit offer.reviews 3)}}
+    %div{data: {id: "{{reviewId}}"}, class:"review-item {{#if isDeleted}} deleted {{/if}}"}
+      %span.close-icon.js-delete-review X
       %img.review-author{src: "{{userImage}}"}
       .review-text {{review}}
     {{/each}}
-    %form.add-review
+    %form.add-review{data: {id: "{{offer.offerId}}"}}
       %img.user.review-author{src: "{{user.userImage}}"}
-      %textarea.review-section{placeholder: "Комментировать"}
+      %textarea.review-section{placeholder: "Комментировать", maxlength: "500", rows: "2"}
   {{#if offer.added.length}}
   .popup-list.popup-added
     .popup-list-text {{offer.added.length}} добавили себе

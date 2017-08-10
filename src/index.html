@@ -13,8 +13,8 @@
 </body>
 </html>
 <script id='offers-template' type='text/x-handlebars-template'>
-<div class='offer-item'>
-<div class='more-button' data-id='{{offer.offerId}}'>Ознакомиться с предложением</div>
+<div class='offer-item' data-id='{{offer.offerId}}'>
+<div class='more-button'>Ознакомиться с предложением</div>
 <img class='offer-cover' src='{{offer.imageURL}}'>
 <div class='offer-info'>
 <div class='theme'>{{offer.title}}</div>
@@ -33,16 +33,17 @@
 <span>предлагает</span>
 </div>
 </div>
-<div class='comments'>
-{{#each offer.comments}}
-<div class='comment-item'>
+<div class='comments hidden'>
+{{#each (limit offer.comments 5)}}
+<div class='comment-item {{#if isDeleted}} deleted {{/if}}' data-id='{{commentId}}'>
+<span class='close-icon js-delete-comment'>X</span>
 <img class='comment-author' src='{{userImage}}'>
 <div class='comment-text'>{{comment}}</div>
 </div>
 {{/each}}
 <form class='add-comment' data-id='{{offer.offerId}}'>
 <img class='user comment-author' src='{{user.userImage}}'>
-<input class='comment-section' placeholder='Комментировать'>
+<textarea class='comment-section' placeholder='Комментировать' rows='1'></textarea>
 </form>
 </div>
 </div>
@@ -70,17 +71,19 @@
 <div class='popup-button add-offer'>Добавить к себе</div>
 <div class='popup-button like-offer'>Мне нравится</div>
 <div class='popup-button comment-offer'>Комментировать</div>
+<div class='popup-button js-delete-offer'>Удалить оффер</div>
 </div>
-<div class='reviews'>
-{{#each offer.reviews}}
-<div class='review-item'>
+<div class='reviews' data-id='{{offer.offerId}}'>
+{{#each (limit offer.reviews 3)}}
+<div class='review-item {{#if isDeleted}} deleted {{/if}}' data-id='{{reviewId}}'>
+<span class='close-icon js-delete-review'>X</span>
 <img class='review-author' src='{{userImage}}'>
 <div class='review-text'>{{review}}</div>
 </div>
 {{/each}}
-<form class='add-review'>
+<form class='add-review' data-id='{{offer.offerId}}'>
 <img class='user review-author' src='{{user.userImage}}'>
-<textarea class='review-section' placeholder='Комментировать'></textarea>
+<textarea class='review-section' maxlength='500' placeholder='Комментировать' rows='2'></textarea>
 </form>
 </div>
 {{#if offer.added.length}}
