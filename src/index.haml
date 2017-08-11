@@ -2,27 +2,50 @@
 %html{lang: "ru"}
   %head
     %meta{charset: "utf-8"}
-    %title Title
+    %title Bubblewell
     %link{rel: "stylesheet", href: "stylesheets/style.css"}
     %script{src: "javascripts/main.js"}
   %body
     .popup.js-popup
-    .overlay
+    .overlay.js-overlay
     .container.js-container
 
 
 %script#offers-template{type: "text/x-handlebars-template"}
   .offer-item{data: {id: "{{offer.offerId}}"}}
-    .more-button Ознакомиться с предложением
+    .open-popup-button Ознакомиться с предложением
+    .extra-icons
+      %img.extra-icon{src: "img/lamp.svg"}
+      %img.extra-icon.js-like-offer{src: "img/heart.svg"}
+      %img.extra-icon.js-add-offer{src: "img/plus.svg"}
+      %img.extra-icon.js-show-comments{src: "img/message.svg"}
     %img.offer-cover{src: "{{offer.imageURL}}"}
     .offer-info
-      .theme {{offer.title}}
-      .info-text.tag {{offer.topic}}
+      .title {{offer.title}}
+      .info-text.topic {{offer.topic}}
       .info-text.date {{offer.actualTime}}
       .info-text.location {{offer.location}}
       .counters
-        %span.likes {{#if offer.likes.length}} {{offer.likes.length}} {{else}} 0 {{/if}} нравится
-        %span.added {{#if offer.added.length}} {{offer.added.length}} {{else}} 0 {{/if}} добавили себе
+        {{#if offer.likes.length}}
+        %span.counter.liked
+          %span {{offer.likes.length}}
+          %span нравится
+        {{/if}}
+        {{#if offer.comments.length}}
+        %span.counter.commented
+          %span {{offer.comments.length}}
+          %span комментария
+        {{/if}}
+        {{#if offer.reviews.length}}
+        %span.counter.reviewed
+          %span {{offer.reviews.length}}
+          %span отзыва
+        {{/if}}
+        {{#if offer.added.length}}
+        %span.counter.added
+          %span {{offer.added.length}}
+          %span добавили себе
+        {{/if}}
     .offer-comment-block
       %img.offer-author{src: "{{offer.author.userImage}}"}
       .author
@@ -55,8 +78,8 @@
     %img.offer-cover{src: "{{offer.imageURL}}"}
     .popup-left-block-description {{offer.description}}
   .popup-right-block{data: {id: "{{offer.offerId}}"}}
-    .popup-button.add-offer Добавить к себе
-    .popup-button.like-offer Мне нравится
+    .popup-button.add-offer.js-popup-add-offer Добавить к себе
+    .popup-button.like-offer.js-popup-like-offer Мне нравится
     .popup-button.comment-offer Комментировать
     .popup-button.js-delete-offer Удалить оффер
   .reviews{data: {id: "{{offer.offerId}}"}}

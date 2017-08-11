@@ -1,14 +1,21 @@
 var controller = (function() {
 
+  Handlebars.registerHelper('limit', function (arr, limit) {
+    var newArr = arr.filter(function(item) {
+      return item.isDeleted === false;
+    });
+    return newArr.slice(-limit);
+  });
+
   function _listeners() {
     $(document)
-      .on('click', '.more-button', function () {
+      .on('click', '.open-popup-button', function () {
       controller.getOffer(parseInt($(this).closest('.offer-item').data('id')));
-      $('.popup').show();
-      $('.overlay').show();
+      $('.popup').fadeIn();
+      $('.overlay').fadeIn();
     })
-      .on('click', '.offer-item', function () {
-        var comments = $(this).find('.comments');
+      .on('click', '.js-show-comments', function () {
+        var comments = $(this).closest('.offer-item').find('.comments');
 
         if (comments.hasClass('hidden')) {
           comments.removeClass('hidden');
@@ -17,39 +24,16 @@ var controller = (function() {
         }
       })
       .on('click', '.overlay, .close .close-icon', function () {
-      $('.popup').hide();
-      $('.overlay').hide();
+      $('.popup').fadeOut();
+      $('.overlay').fadeOut();
     });
   }
-
-  Handlebars.registerHelper('limit', function (arr, limit) {
-    var newArr = arr.filter(function(item) {
-      return item.isDeleted === false;
-    });
-    return newArr.slice(-limit);
-  });
 
   return {
     init: function() {
       _listeners();
       offer.init();
-    },
-    getAllOffers: function() {
-      $.ajax({
-        type: "GET",
-        url: '/offers',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-          var _slidesTemplate = Handlebars.compile($('#offers-template').html());
-          $('.js-container').html('');
-          offers.length = 0;
-          data.offers.forEach(function (item) {
-            offers.push(item);
-            $('.js-container').append(_slidesTemplate({offer: item, user: user}));
-          });
-        }
-      })
+      listing.getAllOffers();
     },
     getOffer: function(id) {
     $.ajax({
@@ -80,6 +64,5 @@ var
 
 $(document).ready(function () {
   controller.init();
-  controller.getAllOffers();
 });
 

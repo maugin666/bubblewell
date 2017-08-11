@@ -2,28 +2,56 @@
 <html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<title>Title</title>
+<title>Bubblewell</title>
 <link href='stylesheets/style.css' rel='stylesheet'>
 <script src='javascripts/main.js'></script>
 </head>
 <body>
 <div class='popup js-popup'></div>
-<div class='overlay'></div>
+<div class='overlay js-overlay'></div>
 <div class='container js-container'></div>
 </body>
 </html>
 <script id='offers-template' type='text/x-handlebars-template'>
 <div class='offer-item' data-id='{{offer.offerId}}'>
-<div class='more-button'>Ознакомиться с предложением</div>
+<div class='open-popup-button'>Ознакомиться с предложением</div>
+<div class='extra-icons'>
+<img class='extra-icon' src='img/lamp.svg'>
+<img class='extra-icon js-like-offer' src='img/heart.svg'>
+<img class='extra-icon js-add-offer' src='img/plus.svg'>
+<img class='extra-icon js-show-comments' src='img/message.svg'>
+</div>
 <img class='offer-cover' src='{{offer.imageURL}}'>
 <div class='offer-info'>
-<div class='theme'>{{offer.title}}</div>
-<div class='info-text tag'>{{offer.topic}}</div>
+<div class='title'>{{offer.title}}</div>
+<div class='info-text topic'>{{offer.topic}}</div>
 <div class='info-text date'>{{offer.actualTime}}</div>
 <div class='info-text location'>{{offer.location}}</div>
 <div class='counters'>
-<span class='likes'>{{#if offer.likes.length}} {{offer.likes.length}} {{else}} 0 {{/if}} нравится</span>
-<span class='added'>{{#if offer.added.length}} {{offer.added.length}} {{else}} 0 {{/if}} добавили себе</span>
+{{#if offer.likes.length}}
+<span class='counter liked'>
+<span>{{offer.likes.length}}</span>
+<span>нравится</span>
+</span>
+{{/if}}
+{{#if offer.comments.length}}
+<span class='counter commented'>
+<span>{{offer.comments.length}}</span>
+<span>комментария</span>
+</span>
+{{/if}}
+{{#if offer.reviews.length}}
+<span class='counter reviewed'>
+<span>{{offer.reviews.length}}</span>
+<span>отзыва</span>
+</span>
+{{/if}}
+{{#if offer.added.length}}
+<span class='counter added'>
+<span>{{offer.added.length}}</span>
+<span>добавили себе</span>
+</span>
+{{/if}}
 </div>
 </div>
 <div class='offer-comment-block'>
@@ -68,8 +96,8 @@
 <div class='popup-left-block-description'>{{offer.description}}</div>
 </div>
 <div class='popup-right-block' data-id='{{offer.offerId}}'>
-<div class='popup-button add-offer'>Добавить к себе</div>
-<div class='popup-button like-offer'>Мне нравится</div>
+<div class='popup-button add-offer js-popup-add-offer'>Добавить к себе</div>
+<div class='popup-button like-offer js-popup-like-offer'>Мне нравится</div>
 <div class='popup-button comment-offer'>Комментировать</div>
 <div class='popup-button js-delete-offer'>Удалить оффер</div>
 </div>

@@ -15094,15 +15094,22 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 var controller = (function() {
 
+  Handlebars.registerHelper('limit', function (arr, limit) {
+    var newArr = arr.filter(function(item) {
+      return item.isDeleted === false;
+    });
+    return newArr.slice(-limit);
+  });
+
   function _listeners() {
     $(document)
-      .on('click', '.more-button', function () {
+      .on('click', '.open-popup-button', function () {
       controller.getOffer(parseInt($(this).closest('.offer-item').data('id')));
-      $('.popup').show();
-      $('.overlay').show();
+      $('.popup').fadeIn();
+      $('.overlay').fadeIn();
     })
-      .on('click', '.offer-item', function () {
-        var comments = $(this).find('.comments');
+      .on('click', '.js-show-comments', function () {
+        var comments = $(this).closest('.offer-item').find('.comments');
 
         if (comments.hasClass('hidden')) {
           comments.removeClass('hidden');
@@ -15111,39 +15118,16 @@ var controller = (function() {
         }
       })
       .on('click', '.overlay, .close .close-icon', function () {
-      $('.popup').hide();
-      $('.overlay').hide();
+      $('.popup').fadeOut();
+      $('.overlay').fadeOut();
     });
   }
-
-  Handlebars.registerHelper('limit', function (arr, limit) {
-    var newArr = arr.filter(function(item) {
-      return item.isDeleted === false;
-    });
-    return newArr.slice(-limit);
-  });
 
   return {
     init: function() {
       _listeners();
       offer.init();
-    },
-    getAllOffers: function() {
-      $.ajax({
-        type: "GET",
-        url: '/offers',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-          var _slidesTemplate = Handlebars.compile($('#offers-template').html());
-          $('.js-container').html('');
-          offers.length = 0;
-          data.offers.forEach(function (item) {
-            offers.push(item);
-            $('.js-container').append(_slidesTemplate({offer: item, user: user}));
-          });
-        }
-      })
+      listing.getAllOffers();
     },
     getOffer: function(id) {
     $.ajax({
@@ -15174,16 +15158,47 @@ var
 
 $(document).ready(function () {
   controller.init();
-  controller.getAllOffers();
 });
 
+
+var listing = (function() {
+
+  function renderOffers(data) {
+    var _slidesTemplate = Handlebars.compile($('#offers-template').html());
+
+    $('.js-container').html('');
+    offers.length = 0;
+
+    data.offers.forEach(function (item, i) {
+      offers.push(item);
+      $('.js-container').append(_slidesTemplate({offer: item, user: user}));
+      if (item.isDeleted === true) {
+        $('.offer-item[data-id="' + i + '"]').addClass('deleted');
+      }
+    });
+  }
+
+  return {
+    getAllOffers: function() {
+      $.ajax({
+        type: "GET",
+        url: '/offers',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+          renderOffers(data);
+        }
+      })
+    }
+  }
+}());
 
 var offer = (function () {
 
   function addComment(comment, offerId) {
     $.ajax({
       type: "POST",
-      url: '/offers/comment/' + offerId,
+      url: '/offers/' + offerId + '/comment/',
       contentType: 'application/json',
       async: false,
       data: JSON.stringify({
@@ -15194,7 +15209,7 @@ var offer = (function () {
         comment: comment
       }),
       success: function () {
-        controller.getAllOffers();
+        listing.getAllOffers();
       }
     })
   }
@@ -15202,7 +15217,7 @@ var offer = (function () {
   function addReview(review, offerId) {
     $.ajax({
       type: "POST",
-      url: '/offers/review/' + offerId,
+      url: '/offers/' + offerId + '/review/',
       contentType: 'application/json',
       dataType: 'json',
       async: false,
@@ -15214,6 +15229,7 @@ var offer = (function () {
         review: review
       }),
       success: function () {
+        listing.getAllOffers();
         controller.getOffer(offerId);
       }
     })
@@ -15222,13 +15238,13 @@ var offer = (function () {
   function deleteComment(offerId, commentId) {
     $.ajax({
       type: "PUT",
-      url: '/offers/comment/' + offerId,
+      url: '/offers/' + offerId + '/comment/',
       contentType: 'application/json',
       dataType: 'json',
       async: false,
       data: JSON.stringify({index: commentId}),
       success: function () {
-        controller.getAllOffers();
+        listing.getAllOffers();
       }
     })
   }
@@ -15236,12 +15252,13 @@ var offer = (function () {
   function deleteReview(offerId, reviewId) {
     $.ajax({
       type: "PUT",
-      url: '/offers/review/' + offerId,
+      url: '/offers/' + offerId + '/review/',
       contentType: 'application/json',
       dataType: 'json',
       async: false,
       data: JSON.stringify({index: reviewId}),
       success: function () {
+        listing.getAllOffers();
         controller.getOffer(offerId);
       }
     })
@@ -15255,13 +15272,12 @@ var offer = (function () {
       dataType: 'json',
       async: false,
       success: function () {
-        controller.getAllOffers();
-        offers.forEach(function (item, i) {
-          console.log(offers);
-          if (item.isDeleted == true) {
-            $('.offer-item[data-id="' + item.offerId + '"]').addClass('deleted');
+        listing.getAllOffers();
+        /*offers.find(function (item, i) {
+          if (item.isDeleted === true) {
+            $('.offer-item[data-id="' + i + '"]').addClass('deleted');
           }
-        });
+        });*/
       }
     })
   }
@@ -15272,25 +15288,59 @@ var offer = (function () {
       })) {
       $.ajax({
         type: "POST",
-        url: '/offers/likes/' + offerId,
+        url: '/offers/' + offerId + '/likes/',
         contentType: 'application/json',
         dataType: 'json',
         async: false,
         data: JSON.stringify({userId: user.userId, userImage: user.userImage}),
         success: function () {
-          controller.getAllOffers();
+          listing.getAllOffers();
+          controller.getOffer(offerId);
         }
       });
     } else {
       $.ajax({
         type: "DELETE",
-        url: '/offers/likes/' + offerId,
+        url: '/offers/' + offerId + '/likes/',
         contentType: 'application/json',
         dataType: 'json',
         async: false,
         data: JSON.stringify({userId: user.userId}),
         success: function () {
-          controller.getAllOffers();
+          listing.getAllOffers();
+          controller.getOffer(offerId);
+        }
+      });
+    }
+  }
+
+  function addOffer(offerId) {
+    if (offers[offerId].added.every(function (item) {
+        return item.userId != user.userId;
+      })) {
+      $.ajax({
+        type: "POST",
+        url: '/offers/' + offerId + '/added/',
+        contentType: 'application/json',
+        dataType: 'json',
+        async: false,
+        data: JSON.stringify({userId: user.userId, userImage: user.userImage}),
+        success: function () {
+          listing.getAllOffers();
+          controller.getOffer(offerId);
+        }
+      });
+    } else {
+      $.ajax({
+        type: "DELETE",
+        url: '/offers/' + offerId + '/added/',
+        contentType: 'application/json',
+        dataType: 'json',
+        async: false,
+        data: JSON.stringify({userId: user.userId}),
+        success: function () {
+          listing.getAllOffers();
+          controller.getOffer(offerId);
         }
       });
     }
@@ -15303,9 +15353,10 @@ var offer = (function () {
         $('.review-section').val();
         $('.overlay').show();
       })
-      .on('submit', '.add-comment', function (event) {
-        event.preventDefault();
-        addComment($(this).find($('.comment-section')).val(), parseInt($(this).data('id')));
+      .on('keypress', '.comment-section', function (event) {
+        if (event.which == 13 && !event.shiftKey) {
+          addComment($(this).val(), parseInt($(this).closest('.add-comment').data('id')));
+        }
       })
       .on('keypress', '.review-section', function (event) {
         if (event.which == 13 && !event.shiftKey) {
@@ -15335,21 +15386,27 @@ var offer = (function () {
         $('.popup').hide();
         deleteOffer(id);
       })
-      .on('click', '.like-offer', function (event) {
+      .on('click', '.js-popup-like-offer', function (event) {
         event.preventDefault();
         likeOffer(parseInt($(this).parent().data('id')));
+      })
+      .on('click', '.js-like-offer', function (event) {
+        event.preventDefault();
+        likeOffer(parseInt($(this).closest('.offer-item').data('id')));
+      })
+      .on('click', '.js-popup-add-offer', function (event) {
+        event.preventDefault();
+        addOffer(parseInt($(this).parent().data('id')));
+      })
+      .on('click', '.js-add-offer', function (event) {
+        event.preventDefault();
+        addOffer(parseInt($(this).closest('.offer-item').data('id')));
       });
   }
 
   return {
     init: function () {
       _listeners();
-    },
-    addOffer: function () {
-      return basket.length;
-    },
-    deleteOffer: function () {
-      return basket.length;
     }
   }
 }());
