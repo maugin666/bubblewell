@@ -29,28 +29,16 @@
 <div class='info-text location'>{{offer.location}}</div>
 <div class='counters'>
 {{#if offer.likes.length}}
-<span class='counter liked'>
-<span>{{offer.likes.length}}</span>
-<span>нравится</span>
-</span>
+<span class='counter liked'>{{offer.likes.length}} нравится</span>
 {{/if}}
 {{#if offer.comments.length}}
-<span class='counter commented'>
-<span>{{offer.comments.length}}</span>
-<span>комментария</span>
-</span>
+<span class='counter commented'>{{offer.comments.length}}</span>
 {{/if}}
 {{#if offer.reviews.length}}
-<span class='counter reviewed'>
-<span>{{offer.reviews.length}}</span>
-<span>отзыва</span>
-</span>
+<span class='counter reviewed'>{{offer.reviews.length}}</span>
 {{/if}}
 {{#if offer.added.length}}
-<span class='counter added'>
-<span>{{offer.added.length}}</span>
-<span>добавили себе</span>
-</span>
+<span class='counter added'>{{offer.added.length}} добавили себе</span>
 {{/if}}
 </div>
 </div>

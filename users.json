@@ -17,17 +17,17 @@
     },
     {
       "userId": 3,
-      "fullName": "",
+      "fullName": "Малыш Адольф",
       "userImage": "http://i.imgur.com/aal1oyS.jpg"
     },
     {
       "userId": 4,
-      "fullName": "",
+      "fullName": "Йося Лежебока",
       "userImage": "http://i.imgur.com/ZlABY2B.jpg?1"
     },
     {
       "userId": 5,
-      "fullName": "",
+      "fullName": "Морти Хитрюга",
       "userImage": "http://i.imgur.com/IkLetkK.png"
     },
     {
@@ -37,7 +37,7 @@
     },
     {
       "userId": 7,
-      "fullName": "",
+      "fullName": "Тайсон Непобедимый",
       "userImage": "http://i.imgur.com/k8yNOXN.png"
     }
   ]

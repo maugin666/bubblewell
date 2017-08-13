@@ -3,11 +3,12 @@ var
   fs = require('fs'),
   router = express.Router();
 
-function readFileAndSendResponse(res) {
+function readDBFileAndSendResponse(res) {
   fs.readFile('offers.json', function (err, data) {
     if (!err) {
       res.setHeader('Content-Type', 'application/json');
-      res.end(data);
+      res.write(data);
+      res.end();
     } else {
       res.send(err);
     }
@@ -16,7 +17,7 @@ function readFileAndSendResponse(res) {
 
 function writeToFileAndSendResponse(obj, res) {
   fs.writeFile('offers.json', JSON.stringify(obj), 'utf-8', function (err) {
-    if (err) console.log(err);
+    if (err) res.send(err);
   });
   res.setHeader('Content-Type', 'application/json');
   res.write(JSON.stringify(obj));
@@ -40,41 +41,41 @@ function readFileAndChangeData(req, res, changeData) {
 /* GET offers listing. */
 router
   .get('/', function(req, res) {
-  readFileAndSendResponse(res);
-})
+    readDBFileAndSendResponse(res);
+  })
   .get('/:id', function(req, res) {
-  readFileAndSendResponse(res);
-})
+    readDBFileAndSendResponse(res);
+  })
   .post('/:id/comment', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].comments.push(req.body);
     });
-})
+  })
   .post('/:id/review', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].reviews.push(req.body);
     });
-})
+  })
   .put('/:id/comment', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].comments[req.body.index].isDeleted = true;
     });
-})
+  })
   .put('/:id/review', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].reviews[req.body.index].isDeleted = true;
     });
-})
+  })
   .put('/:id', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].isDeleted = true;
     });
-})
+  })
   .post('/:id/likes', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].likes.push(req.body);
     });
-})
+  })
   .post('/:id/added', function(req, res) {
     readFileAndChangeData(req, res, function (req, obj) {
       obj.offers[req.params.id].added.push(req.body);
@@ -90,13 +91,13 @@ router
     });
   })
   .delete('/:id/added', function(req, res) {
-  readFileAndChangeData(req, res, function (req, obj) {
-    obj.offers[req.params.id].added.find(function (item, i) {
-      if (item.userId == req.body.userId) {
-        obj.offers[req.params.id].added.splice(i, 1);
-      }
+    readFileAndChangeData(req, res, function (req, obj) {
+      obj.offers[req.params.id].added.find(function (item, i) {
+        if (item.userId == req.body.userId) {
+          obj.offers[req.params.id].added.splice(i, 1);
+        }
+      });
     });
   });
-});
 
 module.exports = router;

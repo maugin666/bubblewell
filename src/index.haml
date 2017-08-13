@@ -27,24 +27,16 @@
       .info-text.location {{offer.location}}
       .counters
         {{#if offer.likes.length}}
-        %span.counter.liked
-          %span {{offer.likes.length}}
-          %span нравится
+        %span.counter.liked {{offer.likes.length}} нравится
         {{/if}}
         {{#if offer.comments.length}}
-        %span.counter.commented
-          %span {{offer.comments.length}}
-          %span комментария
+        %span.counter.commented {{offer.comments.length}}
         {{/if}}
         {{#if offer.reviews.length}}
-        %span.counter.reviewed
-          %span {{offer.reviews.length}}
-          %span отзыва
+        %span.counter.reviewed {{offer.reviews.length}}
         {{/if}}
         {{#if offer.added.length}}
-        %span.counter.added
-          %span {{offer.added.length}}
-          %span добавили себе
+        %span.counter.added {{offer.added.length}} добавили себе
         {{/if}}
     .offer-comment-block
       %img.offer-author{src: "{{offer.author.userImage}}"}
