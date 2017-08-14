@@ -13,8 +13,8 @@
 </body>
 </html>
 <script id='offers-template' type='text/x-handlebars-template'>
-<div class='offer-item' data-id='{{offer.offerId}}'>
-<div class='open-popup-button'>Ознакомиться с предложением</div>
+<div class='offer-item js-offer-item' data-id='{{offer.offerId}}'>
+<div class='open-popup-button js-open-popup'>Ознакомиться с предложением</div>
 <div class='extra-icons'>
 <img class='extra-icon' src='img/lamp.svg'>
 <img class='extra-icon js-like-offer' src='img/heart.svg'>
@@ -29,16 +29,16 @@
 <div class='info-text location'>{{offer.location}}</div>
 <div class='counters'>
 {{#if offer.likes.length}}
-<span class='counter liked'>{{offer.likes.length}} нравится</span>
+<span class='counter liked js-counter-liked' data-id='{{offer.offerId}}'>{{offer.likes.length}} нравится</span>
 {{/if}}
 {{#if offer.comments.length}}
-<span class='counter commented'>{{length offer.comments}}</span>
+<span class='counter commented js-counter-commented'>{{length offer.comments}}</span>
 {{/if}}
 {{#if offer.reviews.length}}
-<span class='counter reviewed'>{{length offer.reviews}}</span>
+<span class='counter reviewed js-counter-reviewed'>{{length offer.reviews}}</span>
 {{/if}}
 {{#if offer.added.length}}
-<span class='counter added'>{{offer.added.length}} добавили себе</span>
+<span class='counter added js-counter-added' data-id='{{offer.offerId}}'>{{offer.added.length}} добавили себе</span>
 {{/if}}
 </div>
 </div>
@@ -49,17 +49,17 @@
 <span>предлагает</span>
 </div>
 </div>
-<div class='comments hidden'>
+<div class='comments hidden js-comments'>
 {{#each (limit offer.comments 5)}}
-<div class='comment-item {{#if isDeleted}} deleted {{/if}}' data-id='{{commentId}}'>
+<div class='comment-item js-comment-item {{#if isDeleted}}deleted{{/if}}' data-id='{{commentId}}'>
 <span class='close-icon js-delete-comment'>X</span>
 <img class='comment-author' src='{{userImage}}'>
 <div class='comment-text'>{{comment}}</div>
 </div>
 {{/each}}
-<form class='add-comment' data-id='{{offer.offerId}}'>
+<form class='add-comment js-add-comment' data-id='{{offer.offerId}}'>
 <img class='user comment-author' src='{{user.userImage}}'>
-<textarea class='comment-section' placeholder='Комментировать' rows='1'></textarea>
+<textarea class='comment-section js-comment-section' placeholder='Комментировать' rows='1'></textarea>
 </form>
 </div>
 </div>
@@ -74,7 +74,7 @@
 <div class='add-friend-button'>Добавить в друзья</div>
 <div class='close'>
 <span>Закрыть</span>
-<span class='close-icon'>X</span>
+<span class='close-icon js-close-popup'>X</span>
 </div>
 </div>
 <div class='popup-left-block'>
@@ -83,23 +83,23 @@
 <img class='offer-cover' src='{{offer.imageURL}}'>
 <div class='popup-left-block-description'>{{offer.description}}</div>
 </div>
-<div class='popup-right-block' data-id='{{offer.offerId}}'>
+<div class='popup-right-block js-buttons' data-id='{{offer.offerId}}'>
 <div class='popup-button add-offer js-popup-add-offer'>Добавить к себе</div>
 <div class='popup-button like-offer js-popup-like-offer'>Мне нравится</div>
 <div class='popup-button comment-offer'>Комментировать</div>
 <div class='popup-button js-delete-offer'>Удалить оффер</div>
 </div>
-<div class='reviews' data-id='{{offer.offerId}}'>
+<div class='reviews js-reviews' data-id='{{offer.offerId}}'>
 {{#each (limit offer.reviews 3)}}
-<div class='review-item {{#if isDeleted}} deleted {{/if}}' data-id='{{reviewId}}'>
+<div class='review-item js-review-item {{#if isDeleted}}deleted{{/if}}' data-id='{{reviewId}}'>
 <span class='close-icon js-delete-review'>X</span>
 <img class='review-author' src='{{userImage}}'>
 <div class='review-text'>{{review}}</div>
 </div>
 {{/each}}
-<form class='add-review' data-id='{{offer.offerId}}'>
+<form class='add-review js-add-review' data-id='{{offer.offerId}}'>
 <img class='user review-author' src='{{user.userImage}}'>
-<textarea class='review-section' maxlength='500' placeholder='Комментировать' rows='2'></textarea>
+<textarea class='review-section js-review-section' maxlength='500' placeholder='Комментировать' rows='2'></textarea>
 </form>
 </div>
 {{#if offer.added.length}}

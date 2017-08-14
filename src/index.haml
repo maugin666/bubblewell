@@ -12,8 +12,8 @@
 
 
 %script#offers-template{type: "text/x-handlebars-template"}
-  .offer-item{data: {id: "{{offer.offerId}}"}}
-    .open-popup-button Ознакомиться с предложением
+  .offer-item.js-offer-item{data: {id: "{{offer.offerId}}"}}
+    .open-popup-button.js-open-popup Ознакомиться с предложением
     .extra-icons
       %img.extra-icon{src: "img/lamp.svg"}
       %img.extra-icon.js-like-offer{src: "img/heart.svg"}
@@ -27,32 +27,32 @@
       .info-text.location {{offer.location}}
       .counters
         {{#if offer.likes.length}}
-        %span.counter.liked {{offer.likes.length}} нравится
+        %span.counter.liked.js-counter-liked{data: {id: "{{offer.offerId}}"}} {{offer.likes.length}} нравится
         {{/if}}
         {{#if offer.comments.length}}
-        %span.counter.commented {{length offer.comments}}
+        %span.counter.commented.js-counter-commented {{length offer.comments}}
         {{/if}}
         {{#if offer.reviews.length}}
-        %span.counter.reviewed {{length offer.reviews}}
+        %span.counter.reviewed.js-counter-reviewed {{length offer.reviews}}
         {{/if}}
         {{#if offer.added.length}}
-        %span.counter.added {{offer.added.length}} добавили себе
+        %span.counter.added.js-counter-added{data: {id: "{{offer.offerId}}"}} {{offer.added.length}} добавили себе
         {{/if}}
     .offer-comment-block
       %img.offer-author{src: "{{offer.author.userImage}}"}
       .author
         %span.name {{offer.author.fullName}}
         %span предлагает
-    .comments.hidden
+    .comments.hidden.js-comments
       {{#each (limit offer.comments 5)}}
-      %div{data: {id: "{{commentId}}"}, class:"comment-item {{#if isDeleted}} deleted {{/if}}"}
+      %div{data: {id: "{{commentId}}"}, class:"comment-item js-comment-item {{#if isDeleted}}deleted{{/if}}"}
         %span.close-icon.js-delete-comment X
         %img.comment-author{src: "{{userImage}}"}
         .comment-text {{comment}}
       {{/each}}
-      %form.add-comment{data: {id: "{{offer.offerId}}"}}
+      %form.add-comment.js-add-comment{data: {id: "{{offer.offerId}}"}}
         %img.user.comment-author{src: "{{user.userImage}}"}
-        %textarea.comment-section{placeholder: "Комментировать", rows: "1"}
+        %textarea.comment-section.js-comment-section{placeholder: "Комментировать", rows: "1"}
 
 %script#popup-template{type: "text/x-handlebars-template"}
   .author-block
@@ -63,27 +63,27 @@
     .add-friend-button Добавить в друзья
     .close
       %span Закрыть
-      %span.close-icon X
+      %span.close-icon.js-close-popup X
   .popup-left-block
     .popup-left-block-title {{offer.title}}
     .popup-left-block-topic {{offer.topic}}
     %img.offer-cover{src: "{{offer.imageURL}}"}
     .popup-left-block-description {{offer.description}}
-  .popup-right-block{data: {id: "{{offer.offerId}}"}}
+  .popup-right-block.js-buttons{data: {id: "{{offer.offerId}}"}}
     .popup-button.add-offer.js-popup-add-offer Добавить к себе
     .popup-button.like-offer.js-popup-like-offer Мне нравится
     .popup-button.comment-offer Комментировать
     .popup-button.js-delete-offer Удалить оффер
-  .reviews{data: {id: "{{offer.offerId}}"}}
+  .reviews.js-reviews{data: {id: "{{offer.offerId}}"}}
     {{#each (limit offer.reviews 3)}}
-    %div{data: {id: "{{reviewId}}"}, class:"review-item {{#if isDeleted}} deleted {{/if}}"}
+    %div{data: {id: "{{reviewId}}"}, class:"review-item js-review-item {{#if isDeleted}}deleted{{/if}}"}
       %span.close-icon.js-delete-review X
       %img.review-author{src: "{{userImage}}"}
       .review-text {{review}}
     {{/each}}
-    %form.add-review{data: {id: "{{offer.offerId}}"}}
+    %form.add-review.js-add-review{data: {id: "{{offer.offerId}}"}}
       %img.user.review-author{src: "{{user.userImage}}"}
-      %textarea.review-section{placeholder: "Комментировать", maxlength: "500", rows: "2"}
+      %textarea.review-section.js-review-section{placeholder: "Комментировать", maxlength: "500", rows: "2"}
   {{#if offer.added.length}}
   .popup-list.popup-added
     .popup-list-text {{offer.added.length}} добавили себе

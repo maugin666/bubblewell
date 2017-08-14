@@ -16,13 +16,13 @@ var controller = (function() {
 
   function _listeners() {
     $(document)
-      .on('click', '.open-popup-button', function () {
-      offer.getOffer(parseInt($(this).closest('.offer-item').data('id')));
-      $('.popup').fadeIn();
-      $('.overlay').fadeIn();
+      .on('click', '.js-open-popup', function () {
+      offer.getOffer(parseInt($(this).closest('.js-offer-item').data('id')));
+      $('.js-popup').fadeIn();
+      $('.js-overlay').fadeIn();
     })
       .on('click', '.js-show-comments', function () {
-        var comments = $(this).closest('.offer-item').find('.comments');
+        var comments = $(this).closest('.js-offer-item').find('.js-comments');
 
         if (comments.hasClass('hidden')) {
           comments.removeClass('hidden');
@@ -30,56 +30,51 @@ var controller = (function() {
           comments.addClass('hidden');
         }
       })
-      .on('click', '.overlay, .close .close-icon', function () {
-        $('.popup').fadeOut();
-        $('.overlay').fadeOut();
+      .on('click', '.js-overlay, .js-close-popup', function () {
+        $('.js-popup').fadeOut();
+        $('.js-overlay').fadeOut();
     })
-      .on('submit', '.add-review', function (event) {
-        event.preventDefault();
-        $('.review-section').val();
-        $('.overlay').show();
-      })
-      .on('keypress', '.comment-section', function (event) {
+      .on('keypress', '.js-comment-section', function (event) {
         if (event.which == 13 && !event.shiftKey) {
-          offer.addComment($(this).val(), parseInt($(this).closest('.add-comment').data('id')));
+          offer.addComment($(this).val(), parseInt($(this).closest('.js-add-comment').data('id')));
         }
       })
-      .on('keypress', '.review-section', function (event) {
+      .on('keypress', '.js-review-section', function (event) {
         if (event.which == 13 && !event.shiftKey) {
-          offer.addReview($(this).val(), parseInt($(this).closest('.add-review').data('id')));
+          offer.addReview($(this).val(), parseInt($(this).closest('.js-add-review').data('id')));
         }
       })
       .on('click', '.js-delete-comment', function () {
         var
-          offerId = parseInt($(this).closest('.offer-item').data('id')),
-          commentId = parseInt($(this).closest('.comment-item').data('id'));
+          offerId = parseInt($(this).closest('.js-offer-item').data('id')),
+          commentId = parseInt($(this).closest('.js-comment-item').data('id'));
 
         offer.deleteComment(offerId, commentId);
       })
       .on('click', '.js-delete-review', function () {
         var
-          offerId = parseInt($(this).closest('.reviews').data('id')),
-          reviewId = parseInt($(this).closest('.review-item').data('id'));
+          offerId = parseInt($(this).closest('.js-reviews').data('id')),
+          reviewId = parseInt($(this).closest('.js-review-item').data('id'));
 
         offer.deleteReview(offerId, reviewId);
       })
       .on('click', '.js-delete-offer', function () {
-        var id = parseInt($(this).closest('.popup-right-block').data('id'));
+        var id = parseInt($(this).closest('.js-buttons').data('id'));
 
-        $('.popup, .overlay').hide();
+        $('.js-popup, .js-overlay').hide();
         offer.deleteOffer(id);
       })
       .on('click', '.js-popup-like-offer', function () {
         offer.likeOffer(parseInt($(this).parent().data('id')));
       })
       .on('click', '.js-like-offer', function () {
-        offer.likeOffer(parseInt($(this).closest('.offer-item').data('id')));
+        offer.likeOffer(parseInt($(this).closest('.js-offer-item').data('id')));
       })
       .on('click', '.js-popup-add-offer', function () {
         offer.addOffer(parseInt($(this).parent().data('id')));
       })
       .on('click', '.js-add-offer', function () {
-        offer.addOffer(parseInt($(this).closest('.offer-item').data('id')));
+        offer.addOffer(parseInt($(this).closest('.js-offer-item').data('id')));
       });
   }
 

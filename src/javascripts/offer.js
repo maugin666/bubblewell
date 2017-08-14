@@ -1,6 +1,6 @@
 var offer = (function () {
 
-  function sendRequest(method, url, data, success) {
+  function _sendRequest(method, url, data, success) {
     $.ajax({
       type: method,
       url: url,
@@ -15,7 +15,7 @@ var offer = (function () {
 
   return {
     getOffer: function(id) {
-      sendRequest('GET', '/offers', {}, function (data) {
+      _sendRequest('GET', '/offers', {}, function (data) {
         data.offers.find(function(item) {
           if (item.offerId === id) {
             var _slidesTemplate = Handlebars.compile($('#popup-template').html());
@@ -32,7 +32,9 @@ var offer = (function () {
         isDeleted: false,
         comment: comment
       };
-      sendRequest('POST', '/offers/' + offerId + '/comment/', commentObj, function () { listing.getAllOffers(); });
+      _sendRequest('POST', '/offers/' + offerId + '/comment/', commentObj, function () {
+        listing.getAllOffers();
+      });
   },
     addReview: function(review, offerId) {
       var reviewObj = {
@@ -42,48 +44,62 @@ var offer = (function () {
         isDeleted: false,
         review: review
       };
-      sendRequest('POST', '/offers/' + offerId + '/review/', reviewObj, function () {
+      _sendRequest('POST', '/offers/' + offerId + '/review/', reviewObj, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
   },
     deleteComment: function(offerId, commentId) {
-      sendRequest('PUT', '/offers/' + offerId + '/comment/', {index: commentId}, function () { listing.getAllOffers(); });
+      _sendRequest('PUT', '/offers/' + offerId + '/comment/', {index: commentId}, function () {
+        listing.getAllOffers();
+      });
   },
     deleteReview: function(offerId, reviewId) {
-      sendRequest('PUT', '/offers/' + offerId + '/review/', {index: reviewId}, function () {
+      _sendRequest('PUT', '/offers/' + offerId + '/review/', {index: reviewId}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
   },
     deleteOffer: function(offerId) {
-      sendRequest('PUT', '/offers/' + offerId, {}, function () { listing.getAllOffers(); });
+      _sendRequest('PUT', '/offers/' + offerId, {}, function () {
+        listing.getAllOffers();
+      });
   },
     likeOffer: function(offerId) {
+      var userObj = {
+        userId: bubblewellUser.userId,
+        userImage: bubblewellUser.userImage
+      };
+
     if (bubblewellOffers[offerId].likes.every(function (item) {
         return item.userId != bubblewellUser.userId;
       })) {
-      sendRequest('POST', '/offers/' + offerId + '/likes/', {userId: bubblewellUser.userId, userImage: bubblewellUser.userImage}, function () {
+      _sendRequest('POST', '/offers/' + offerId + '/likes/', userObj, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
     } else {
-      sendRequest('DELETE', '/offers/' + offerId + '/likes/', {userId: bubblewellUser.userId}, function () {
+      _sendRequest('DELETE', '/offers/' + offerId + '/likes/', {userId: bubblewellUser.userId}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
     }
   },
     addOffer: function(offerId) {
+      var userObj = {
+        userId: bubblewellUser.userId,
+        userImage: bubblewellUser.userImage
+      };
+
     if (bubblewellOffers[offerId].added.every(function (item) {
         return item.userId != bubblewellUser.userId;
       })) {
-      sendRequest('POST', '/offers/' + offerId + '/added/', {userId: bubblewellUser.userId, userImage: bubblewellUser.userImage}, function () {
+      _sendRequest('POST', '/offers/' + offerId + '/added/', userObj, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
     } else {
-      sendRequest('DELETE', '/offers/' + offerId + '/added/', {userId: bubblewellUser.userId}, function () {
+      _sendRequest('DELETE', '/offers/' + offerId + '/added/', {userId: bubblewellUser.userId}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });

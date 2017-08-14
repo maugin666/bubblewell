@@ -59,7 +59,7 @@
           "commentId": 0,
           "userId": 7,
           "userImage": "http://i.imgur.com/k8yNOXN.png",
-          "isDeleted": true,
+          "isDeleted": false,
           "comment": "Meow!"
         },
         {
@@ -89,7 +89,7 @@
           "reviewId": 1,
           "userId": 5,
           "userImage": "http://i.imgur.com/IkLetkK.png",
-          "isDeleted": true,
+          "isDeleted": false,
           "review": "Необходимо сверстать страничку по предоставленным макетам с небольшими поправками."
         },
         {
@@ -103,7 +103,7 @@
           "reviewId": 3,
           "userId": 5,
           "userImage": "http://i.imgur.com/IkLetkK.png",
-          "isDeleted": true,
+          "isDeleted": false,
           "review": "четвертый"
         },
         {
@@ -152,6 +152,10 @@
         {
           "userId": 4,
           "userImage": "http://i.imgur.com/ZlABY2B.jpg?1"
+        },
+        {
+          "userId": 6,
+          "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
         }
       ],
       "added": [
@@ -177,11 +181,19 @@
           "commentId": 0,
           "userId": 6,
           "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G",
-          "isDeleted": true,
+          "isDeleted": false,
           "comment": "zxzczx"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "reviewId": 0,
+          "userId": 6,
+          "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G",
+          "isDeleted": false,
+          "review": "hohohoh"
+        }
+      ]
     },
     {
       "offerId": 2,
@@ -252,7 +264,7 @@
           "commentId": 2,
           "userId": 6,
           "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G",
-          "isDeleted": true,
+          "isDeleted": false,
           "comment": "qwerty"
         }
       ],
@@ -286,7 +298,12 @@
           "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
         }
       ],
-      "added": [],
+      "added": [
+        {
+          "userId": 6,
+          "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
+        }
+      ],
       "comments": [
         {
           "commentId": 0,
@@ -406,14 +423,14 @@
           "commentId": 0,
           "userId": 6,
           "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G",
-          "isDeleted": true,
+          "isDeleted": false,
           "comment": "123"
         },
         {
           "commentId": 1,
           "userId": 6,
           "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G",
-          "isDeleted": true,
+          "isDeleted": false,
           "comment": "121212"
         }
       ],
@@ -460,7 +477,7 @@
           "commentId": 0,
           "userId": 6,
           "userImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G",
-          "isDeleted": true,
+          "isDeleted": false,
           "comment": "zzzz"
         }
       ],
