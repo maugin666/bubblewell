@@ -19,16 +19,16 @@ var offer = (function () {
         data.offers.find(function(item) {
           if (item.offerId === id) {
             var _slidesTemplate = Handlebars.compile($('#popup-template').html());
-            $('.js-popup').html(_slidesTemplate({offer: item, user: user}));
+            $('.js-popup').html(_slidesTemplate({offer: item, user: bubblewellUser}));
           }
         });
       });
     },
     addComment: function(comment, offerId) {
       var commentObj = {
-        commentId: offers[offerId].comments.length,
-        userId: user.userId,
-        userImage: user.userImage,
+        commentId: bubblewellOffers[offerId].comments.length,
+        userId: bubblewellUser.userId,
+        userImage: bubblewellUser.userImage,
         isDeleted: false,
         comment: comment
       };
@@ -36,14 +36,15 @@ var offer = (function () {
   },
     addReview: function(review, offerId) {
       var reviewObj = {
-        reviewId: offers[offerId].reviews.length,
-        userId: user.userId,
-        userImage: user.userImage,
+        reviewId: bubblewellOffers[offerId].reviews.length,
+        userId: bubblewellUser.userId,
+        userImage: bubblewellUser.userImage,
         isDeleted: false,
         review: review
       };
       sendRequest('POST', '/offers/' + offerId + '/review/', reviewObj, function () {
-        listing.getAllOffers(); offer.getOffer(offerId);
+        listing.getAllOffers();
+        offer.getOffer(offerId);
       });
   },
     deleteComment: function(offerId, commentId) {
@@ -51,37 +52,38 @@ var offer = (function () {
   },
     deleteReview: function(offerId, reviewId) {
       sendRequest('PUT', '/offers/' + offerId + '/review/', {index: reviewId}, function () {
-        listing.getAllOffers(); offer.getOffer(offerId);
+        listing.getAllOffers();
+        offer.getOffer(offerId);
       });
   },
     deleteOffer: function(offerId) {
       sendRequest('PUT', '/offers/' + offerId, {}, function () { listing.getAllOffers(); });
   },
     likeOffer: function(offerId) {
-    if (offers[offerId].likes.every(function (item) {
-        return item.userId != user.userId;
+    if (bubblewellOffers[offerId].likes.every(function (item) {
+        return item.userId != bubblewellUser.userId;
       })) {
-      sendRequest('POST', '/offers/' + offerId + '/likes/', {userId: user.userId, userImage: user.userImage}, function () {
+      sendRequest('POST', '/offers/' + offerId + '/likes/', {userId: bubblewellUser.userId, userImage: bubblewellUser.userImage}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
     } else {
-      sendRequest('DELETE', '/offers/' + offerId + '/likes/', {userId: user.userId}, function () {
+      sendRequest('DELETE', '/offers/' + offerId + '/likes/', {userId: bubblewellUser.userId}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
     }
   },
     addOffer: function(offerId) {
-    if (offers[offerId].added.every(function (item) {
-        return item.userId != user.userId;
+    if (bubblewellOffers[offerId].added.every(function (item) {
+        return item.userId != bubblewellUser.userId;
       })) {
-      sendRequest('POST', '/offers/' + offerId + '/added/', {userId: user.userId, userImage: user.userImage}, function () {
+      sendRequest('POST', '/offers/' + offerId + '/added/', {userId: bubblewellUser.userId, userImage: bubblewellUser.userImage}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });
     } else {
-      sendRequest('DELETE', '/offers/' + offerId + '/added/', {userId: user.userId}, function () {
+      sendRequest('DELETE', '/offers/' + offerId + '/added/', {userId: bubblewellUser.userId}, function () {
         listing.getAllOffers();
         offer.getOffer(offerId);
       });

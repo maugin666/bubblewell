@@ -32,10 +32,10 @@
 <span class='counter liked'>{{offer.likes.length}} нравится</span>
 {{/if}}
 {{#if offer.comments.length}}
-<span class='counter commented'>{{offer.comments.length}}</span>
+<span class='counter commented'>{{length offer.comments}}</span>
 {{/if}}
 {{#if offer.reviews.length}}
-<span class='counter reviewed'>{{offer.reviews.length}}</span>
+<span class='counter reviewed'>{{length offer.reviews}}</span>
 {{/if}}
 {{#if offer.added.length}}
 <span class='counter added'>{{offer.added.length}} добавили себе</span>

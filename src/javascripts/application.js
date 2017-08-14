@@ -7,6 +7,13 @@ var controller = (function() {
     return newArr.slice(-limit);
   });
 
+  Handlebars.registerHelper("length", function(arr) {
+    var newArr = arr.filter(function(item) {
+      return item.isDeleted === false;
+    });
+    return newArr.length;
+  });
+
   function _listeners() {
     $(document)
       .on('click', '.open-popup-button', function () {
@@ -24,8 +31,8 @@ var controller = (function() {
         }
       })
       .on('click', '.overlay, .close .close-icon', function () {
-      $('.popup').fadeOut();
-      $('.overlay').fadeOut();
+        $('.popup').fadeOut();
+        $('.overlay').fadeOut();
     })
       .on('submit', '.add-review', function (event) {
         event.preventDefault();
@@ -42,43 +49,36 @@ var controller = (function() {
           offer.addReview($(this).val(), parseInt($(this).closest('.add-review').data('id')));
         }
       })
-      .on('click', '.js-delete-comment', function (event) {
+      .on('click', '.js-delete-comment', function () {
         var
           offerId = parseInt($(this).closest('.offer-item').data('id')),
           commentId = parseInt($(this).closest('.comment-item').data('id'));
 
-        event.preventDefault();
         offer.deleteComment(offerId, commentId);
       })
-      .on('click', '.js-delete-review', function (event) {
+      .on('click', '.js-delete-review', function () {
         var
           offerId = parseInt($(this).closest('.reviews').data('id')),
           reviewId = parseInt($(this).closest('.review-item').data('id'));
 
-        event.preventDefault();
         offer.deleteReview(offerId, reviewId);
       })
-      .on('click', '.js-delete-offer', function (event) {
+      .on('click', '.js-delete-offer', function () {
         var id = parseInt($(this).closest('.popup-right-block').data('id'));
 
-        event.preventDefault();
         $('.popup, .overlay').hide();
         offer.deleteOffer(id);
       })
-      .on('click', '.js-popup-like-offer', function (event) {
-        event.preventDefault();
+      .on('click', '.js-popup-like-offer', function () {
         offer.likeOffer(parseInt($(this).parent().data('id')));
       })
-      .on('click', '.js-like-offer', function (event) {
-        event.preventDefault();
+      .on('click', '.js-like-offer', function () {
         offer.likeOffer(parseInt($(this).closest('.offer-item').data('id')));
       })
-      .on('click', '.js-popup-add-offer', function (event) {
-        event.preventDefault();
+      .on('click', '.js-popup-add-offer', function () {
         offer.addOffer(parseInt($(this).parent().data('id')));
       })
-      .on('click', '.js-add-offer', function (event) {
-        event.preventDefault();
+      .on('click', '.js-add-offer', function () {
         offer.addOffer(parseInt($(this).closest('.offer-item').data('id')));
       });
   }
@@ -92,12 +92,12 @@ var controller = (function() {
 }());
 
 var
-  user = {
+  bubblewellUser = {
     userId: 6,
     fullName: "Мурзик Забияка",
     userImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbY1H2x-x225ThT1Nu3zyfpST9KomTdS6pmPEOA_9KfyNnc2G"
   },
-  offers = [];
+  bubblewellOffers = [];
 
 $(document).ready(function () {
   controller.init();

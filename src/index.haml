@@ -30,10 +30,10 @@
         %span.counter.liked {{offer.likes.length}} нравится
         {{/if}}
         {{#if offer.comments.length}}
-        %span.counter.commented {{offer.comments.length}}
+        %span.counter.commented {{length offer.comments}}
         {{/if}}
         {{#if offer.reviews.length}}
-        %span.counter.reviewed {{offer.reviews.length}}
+        %span.counter.reviewed {{length offer.reviews}}
         {{/if}}
         {{#if offer.added.length}}
         %span.counter.added {{offer.added.length}} добавили себе
